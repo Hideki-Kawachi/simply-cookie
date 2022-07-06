@@ -1,3 +1,23 @@
+## Front End for Simply Cookie
+
+Front-end Stack used:
+
+- Next.js
+- Tailwind CSS
+- SASS
+- Framer Motion
+
+Goals for the project:
+
+- Responsive, can be used on the phone and desktop
+- Fast and efficient
+- Readable code
+- Cohesive design
+- SSR
+
+Concept Design:
+https://www.figma.com/file/9672QiiDlEKUGTp5TZt18w/Simply-Cookie?node-id=0%3A1
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
