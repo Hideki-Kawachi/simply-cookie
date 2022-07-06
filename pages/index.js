@@ -6,22 +6,22 @@ export default function Home(){
       <div className='header'></div>
       <Menu></Menu>
       <p>
-        SDAHJKDLHSAKSDA
+        SDAHJKDLHSAKSDAd
       </p>
       <p>
-        SDAHJKDLHSAKSDA
+        SDAHJKDLHSAKSDAd
       </p>
       <p>
-        SDAHJKDLHSAKSDA
+        SDAHJKDLHSAKSDAd
       </p>
       <p>
-        SDAHJKDLHSAKSDA
+        SDAHJKDLHSAKSDAd
       </p>
       <p>
-        SDAHJKDLHSAKSDA
+        SDAHJKDLHSAKSDAd
       </p>
       <p>
-        SDAHJKDLHSAKSDA
+        SDAHJKDLHSAKSDAd
       </p>
     </>
   )
