@@ -8,10 +8,12 @@ $white: #FFFFFF;
 $nude: #DBCCCC;
 $brown: #4C1A1A;
 
-div.header {
+#header {
     background-color: $beige;
-    height: 13vh;
-    width: 100vw;
+
+    #logo{
+        margin-left: calc(50% - 50px);
+    }
 }
 
 .menu-button{
@@ -26,15 +28,14 @@ div.header {
     position: absolute;
     min-height: 87vh;
     max-height: fit-content;
-    opacity: 90%;
+    opacity: 70%;
     z-index: 0;
 }
 
 .menu-items{
-    position: relative;
     font-family: 'Montserrat', sans-serif;
     font-size: 24px;
-    font-weight: 400;
+    font-weight: 500;
     z-index: 99;
     cursor: pointer;
 
