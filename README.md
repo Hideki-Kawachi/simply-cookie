@@ -6,6 +6,7 @@ Front-end Stack used:
 - Tailwind CSS
 - SASS
 - Framer Motion
+- Lottie (for Adobe After Effects animation)
 
 Goals for the project:
 

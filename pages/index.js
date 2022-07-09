@@ -1,7 +1,7 @@
 import Menu from '../components/menu'
-import logo from '../animations/logo.json';
+import scLogo3 from '../animations/scLogo3.json';
 import Lottie from 'lottie-web';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Home(){
 
@@ -9,13 +9,15 @@ export default function Home(){
 
 
   useEffect(()=>{
-    Lottie.loadAnimation({
+    var logoAnimation = Lottie.loadAnimation({
+        // @ts-ignore
         container: document.getElementById('logo'),
         renderer: 'svg',
         loop: false,
         autoplay: true,
-        animationData: logo
+        animationData: scLogo3,
     });
+    logoAnimation.setSpeed(0.8);
 },[]);
 
   return (
