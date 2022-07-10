@@ -1,14 +1,8 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { createWrapper } from "next-redux-wrapper";
+import { configureStore } from "@reduxjs/toolkit";
+import cartSliceReducer from "./cartSlice";
 
-import cart from './cartSlice'
-
-const combinedReducers = combineReducers({
-    cart
+export default configureStore({
+    reducer: {
+        cart: cartSliceReducer
+    }
 });
-
-export const makeStore = () => configureStore({
-    reducer: combinedReducers
-})
-
-export const wrapper = createWrapper(makeStore);

@@ -1,18 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-//sessionStorage.getItem("cart");
-const initialState = 0;
-
 export const cartSlice = createSlice({
     name: "cart",
-    initialState,
+    initialState: {
+        quantity: 0
+    },
     reducers: {
-        edit: (state)=>{
-            //state = {...state, actions.payload}
+        increment: (state)=>{
+            state.quantity += 1;
+        },
+        decrement: (state)=>{
+            state.quantity -= 1;
+        },
+        addItem: (state, action)=>{
+            console.log("action");
         }
     }
 })
 
-export const { edit } = cartSlice.actions;
+export const {increment,decrement,addItem} = cartSlice.actions;
 
-export default cartSlice
+export default cartSlice.reducer;

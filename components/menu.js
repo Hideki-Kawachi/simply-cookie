@@ -12,9 +12,10 @@ const menuVariants = {
         right: 0,
         width: "100%",
         transition: {
-            ease: "easeIn",
+            ease: "easeInOut",
             staggerChildren: "0.15",
-            when: "beforeChildren"
+            when: "beforeChildren",
+            duration: 0.5
         }
     },
     end: {
@@ -22,10 +23,11 @@ const menuVariants = {
         width: 0,
         overflow: "hidden",
         transition: {
-            ease: "easeIn",
-            staggerChildren: "0.15",
+            ease: "easeOut",
+            staggerChildren: "0.1",
             when: "afterChildren",
-            staggerDirection: "-1"
+            staggerDirection: "-1",
+            duration: 0.3
         }
     }
 }
@@ -71,7 +73,7 @@ function Menu() {
 
     const menuPop = {
         true:(
-                <motion.div className='menu-background' initial="start" animate="show" exit="end" variants={menuVariants}>
+                <motion.div id='menu-background' initial="start" animate="show" exit="end" variants={menuVariants}>
                         <Link href="/">
                             <motion.a className='menu-items' variants={itemVariants} onClick={()=>setIsOpen(false)}>HOME</motion.a>
                         </Link>
@@ -91,15 +93,27 @@ function Menu() {
         )
     }
 
+
     useEffect(()=>{
         if(isOpen){
-            document.body.style.overflow='hidden';
+            overflow();
         }
         else{
-            document.body.style.overflow='unset';
+            setTimeout(overflow,700);
         }
+        
     },[isOpen])
 
+
+    function overflow(){
+        console.log("overflow");
+        if(isOpen){
+            document.body.style.overflow = 'hidden';
+        }
+        else{
+            document.body.style.overflow = 'unset';
+        }
+    }
 
     return (
         <>

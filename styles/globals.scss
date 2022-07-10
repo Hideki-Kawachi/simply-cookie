@@ -32,7 +32,7 @@ html *{
     }
 }
 
-.menu-background{
+#menu-background{
     background-color: $nude;
     position: absolute;
     min-height: 130vh;
@@ -122,10 +122,11 @@ html *{
     background-color: $beige;
     border-radius: 5px;
     display: flex;
-    width: 100px;
+    width: 130px;
     justify-content: space-between;
 
     button{
+        padding: 3px;
         border: 1px;
         border-style: solid;
         border-color: gray;

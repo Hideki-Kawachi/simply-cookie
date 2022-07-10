@@ -1,12 +1,13 @@
 import React from 'react'
 import '../styles/globals.scss'
-import { wrapper } from '../redux/store'
+import store from '../redux/store'
+import { Provider } from 'react-redux';
 
 
 function MyApp({ Component, pageProps }) {
 
   return (
-    <>
+    <Provider store={store}>
       <header>
         <title>Simply Cookie</title>
         <meta name="description" content="Simply Cookie Website" />
@@ -16,8 +17,8 @@ function MyApp({ Component, pageProps }) {
         <link href="https://fonts.googleapis.com/css2?family=Caramel&family=Montserrat:wght@100;300;400;500&display=swap" rel="stylesheet"/>
       </header>
       <Component {...pageProps} />
-    </>
+    </Provider>
   )
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;
