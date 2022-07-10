@@ -5,6 +5,8 @@ import OrderItem from '../components/orderItem';
 
 function Order() {
     const cookies = [{name: "SC CLASSIC", price: 240, qty: 5},{name: "CHOCO WALNUT", price: 300, qty: 5}]
+    
+    /*
     const initialCart = {quantity : sessionStorage.getItem("")};
 
     function cartReducer(cart = initialCart, action){
@@ -15,6 +17,7 @@ function Order() {
                 }
         }
     }
+    */
 
     return ( 
         <>
