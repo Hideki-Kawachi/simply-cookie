@@ -25,7 +25,7 @@ function OrderItem( {name, price, qty}) {
         <div className='order-item-main'>
             <h1 className='order-item-name'>{name}</h1>
             <div className='order-item-pic-container'>
-                <Image className='order-item-pic' src={'/images/sc_classic.png'} layout="responsive" width="100%" height="100%"></Image>
+                <Image className='order-item-pic' src={'/images/sc_classic.PNG'} layout="responsive" width="100%" height="100%"></Image>
             </div>
             
             <span className='order-item-text'>Php {price} / Box of {qty}</span>
