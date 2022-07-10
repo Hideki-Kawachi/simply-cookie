@@ -106,7 +106,6 @@ function Menu() {
 
 
     function overflow(){
-        console.log("overflow");
         if(isOpen){
             document.body.style.overflow = 'hidden';
         }

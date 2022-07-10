@@ -4,7 +4,7 @@ import OrderItem from '../components/orderItem';
 
 
 function Order() {
-    const cookies = [{name: "SC CLASSIC", price: 240, qty: 5},{name: "CHOCO WALNUT", price: 300, qty: 5}]
+    const cookies = [{name: "SC CLASSIC", pic: "/images/sc_classic.PNG", price: 240, qty: 5},{name: "CHOCO WALNUT",pic:"/images/choco_walnut.PNG" , price: 300, qty: 5}]
     
     
 
@@ -19,7 +19,7 @@ function Order() {
         <Menu></Menu>
         <div id="content-area">
             {cookies.map((cookie)=>(
-                <OrderItem key={cookie.name} name={cookie.name} price={cookie.price} qty={cookie.qty}></OrderItem>
+                <OrderItem key={cookie.name} pic={cookie.pic} name={cookie.name} price={cookie.price} qty={cookie.qty}></OrderItem>
             ))}
         </div>
         <div className='cart-container'>

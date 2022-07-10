@@ -5,9 +5,6 @@ import React, { useEffect, useState } from 'react';
 
 export default function Home(){
 
-  const [renders, setRenders] = (useState(0));
-
-
   useEffect(()=>{
     var logoAnimation = Lottie.loadAnimation({
         // @ts-ignore

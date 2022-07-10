@@ -2,8 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion, useAnimation } from 'framer-motion';
 
-function OrderItem( {name, price, qty}) {
+function OrderItem( {name, pic, price, qty}) {
     const [quantity, setQuantity] = useState(0);
+    const [source, setSource] = useState("");
 
     const control = useAnimation();
 
@@ -20,12 +21,12 @@ function OrderItem( {name, price, qty}) {
     function disableButton(){
         return quantity<=0
     }
-
+    
     return ( 
         <div className='order-item-main'>
             <h1 className='order-item-name'>{name}</h1>
             <div className='order-item-pic-container'>
-                <Image className='order-item-pic' src={'/images/sc_classic.PNG'} layout="responsive" width="100%" height="100%"></Image>
+                <Image className='order-item-pic' src={pic} layout="responsive" width="100%" height="100%"></Image>
             </div>
             
             <span className='order-item-text'>Php {price} / Box of {qty}</span>
