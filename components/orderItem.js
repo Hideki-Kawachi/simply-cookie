@@ -8,6 +8,7 @@ function OrderItem( {name, pic, price, qty, description}) {
 
     const control = useAnimation();
 
+    
     const buttonVariants = {
         clicked: {
             scale: 0.9,
