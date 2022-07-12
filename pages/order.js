@@ -4,7 +4,7 @@ import OrderItem from '../components/orderItem';
 
 
 function Order() {
-    const cookies = [{name: "SC CLASSIC", pic: "/images/sc_classic.PNG", price: 240, qty: 5},{name: "CHOCO WALNUT",pic:"/images/choco_walnut.PNG" , price: 300, qty: 5}]
+    const cookies = [{name: "SC CLASSIC", pic: "/images/cookie5.jpg", price: 240, qty: 5, description: "Want a bite?  Our SC Classic is loaded with FOUR Kinds of chocolate combining premium couverture chocolate and our locally sourced artisinal chocolate."},{name: "CHOCO WALNUT",pic:"/images/cookie4.jpg" , price: 300, qty: 5, description: "Lightly toasted walnuts mixed with three kinds of chocolate.  Choco Walnut is perfect for those who want that extra crunch and nutty flavor!"}]
     
     
 
@@ -19,7 +19,7 @@ function Order() {
         <Menu></Menu>
         <div id="content-area">
             {cookies.map((cookie)=>(
-                <OrderItem key={cookie.name} pic={cookie.pic} name={cookie.name} price={cookie.price} qty={cookie.qty}></OrderItem>
+                <OrderItem key={cookie.name} pic={cookie.pic} name={cookie.name} price={cookie.price} qty={cookie.qty} description={cookie.description}></OrderItem>
             ))}
         </div>
         <div className='cart-container'>
