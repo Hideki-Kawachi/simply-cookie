@@ -1,60 +1,74 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { motion, useAnimation } from 'framer-motion';
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import Image from "next/image";
+import { motion, useAnimation } from "framer-motion";
+import Link from "next/link";
+import ItemContext, { item } from "../context/itemContext";
 
-function OrderItem( {name, pic, price, qty, description}) {
-    const [quantity, setQuantity] = useState(0);
-    const [source, setSource] = useState("");
+function OrderItem({ name, price, qty, description, pic }) {
+	const itemContext = useContext(ItemContext);
+	const control = useAnimation();
 
-    const control = useAnimation();
+	const cardVariants = {
+		clicked: {
+			scale: 0.98,
+			boxShadow: "0px 1px 1px 1px rgba(0, 0, 0, 0.15)",
+			transition: {
+				type: "spring",
+				bounce: 0.7,
+				duration: 0.08,
+			},
+		},
+		hover: {
+			scale: 1.01,
+			boxShadow: "0px 3px 5px 5px rgba(0, 0, 0, 0.25)",
+			transition: {
+				type: "easeInOut",
+				duration: 0.08,
+			},
+		},
+	};
+	/*
+	function getItemContext() {
+		// @ts-ignore
+		itemContext.setItem({
+			name: name,
+			price: price,
+			qty: qty,
+			description: description,
+			pic: pic,
+		});
+	}
+*/
+	return (
+		<Link
+			href={{ pathname: "/order/orderSelect[item]", query: { item: name } }}
+		>
+			<motion.a
+				whileTap="clicked"
+				whileHover="hover"
+				animate={control}
+				variants={cardVariants}
+				className="order-item-main"
+			>
+				<div className="order-item-pic-container">
+					<Image
+						className="order-item-pic"
+						src={pic}
+						layout="responsive"
+						width="100%"
+						height="100%"
+					></Image>
+				</div>
+				<div className="order-item-description-container">
+					<h1 className="order-item-name">{name}</h1>
+					<hr></hr>
+					<span className="order-item-description">{description}</span>
+				</div>
+			</motion.a>
+		</Link>
 
-    
-    const buttonVariants = {
-        clicked: {
-            scale: 0.9,
-            transition: {
-                ease: "easeInOut",
-                duration: 0.05
-            }
-        }
-    }
-
-    function disableButton(){
-        return quantity<=0
-    }
-    
-    return ( 
-        <div className='order-item-main'>
-            <div className='order-item-pic-container'>
-                <Image className='order-item-pic' src={pic} layout="responsive" width="100%" height="100%"></Image>
-            </div>
-            <div className='order-item-description-container'>
-                <h1 className='order-item-name'>{name}</h1>
-                <hr></hr>
-                <span className='order-item-description'>{description}</span>
-            </div>
-            
-            
-          {/*  
-            <span className='order-item-text'>Php {price} / Box of {qty}</span>
-        
-            <div className='order-item-quantity-container'>
-                <motion.button disabled={disableButton()} whileTap="clicked" animate={control} variants={buttonVariants} onClick={()=>setQuantity(quantity-1)}>
-                    <svg width="24" height="24" strokeWidth="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 12H18" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                </motion.button>
-                <span>{quantity}</span>
-                <motion.button whileTap="clicked" animate={control} variants={buttonVariants} onClick={()=>setQuantity(quantity+1)}>
-                    <svg width="24" height="24" strokeWidth="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 12H12M18 12H12M12 12V6M12 12V18" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                </motion.button>
-            </div>
-        */}
-            
-        </div>
-     );
+		/*<motion.div whileTap="clicked" whileHover="hover" animate={control} variants={cardVariants} className='order-item-main' onClick={()=>router.push("/orderSelect")}>*/
+	);
 }
 
 export default OrderItem;

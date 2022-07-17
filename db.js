@@ -1,37 +1,16 @@
-import { MongoClient } from 'mongodb'
+import mongoose from "mongoose";
 
-let uri = process.env.MONGODB_URI
-let dbName = process.env.MONGODB_DB
-
-let cachedClient = null
-let cachedDb = null
+let uri =
+	process.env.MONGODB_URI ||
+	"mongodb+srv://Admin:AdminPassword@cluster0.qyaxn.mongodb.net/Simply-Cookie?retryWrites=true&w=majority";
+// ?retryWrites=true&w=majority
 
 if (!uri) {
-  throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env.local'
-  )
+	throw new Error(
+		"Please define the MONGODB_URI environment variable inside .env.local"
+	);
 }
+//console.log("trying to connect to db");
+const connectToDB = async () => mongoose.connect(uri);
 
-if (!dbName) {
-  throw new Error(
-    'Please define the MONGODB_DB environment variable inside .env.local'
-  )
-}
-
-export async function connectToDatabase() {
-  if (cachedClient && cachedDb) {
-    return { client: cachedClient, db: cachedDb }
-  }
-
-  const client = await MongoClient.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-
-  const db = await client.db(dbName)
-
-  cachedClient = client
-  cachedDb = db
-
-  return { client, db }
-}
+export default connectToDB;

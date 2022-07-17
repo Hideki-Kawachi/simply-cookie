@@ -1,6 +1,7 @@
 import { connectToDatabase } from "../../db";
 
 export default async (req, res) => {
+  /*
   const { db } = await connectToDatabase();
 
   const movies = await db
@@ -11,4 +12,7 @@ export default async (req, res) => {
     .toArray();
 
   res.json(movies);
+  */
+ console.log("hello")
+ res.json("hello");
 };

@@ -4,7 +4,6 @@ Tech Stack used:
 
 - Next.js
 - MongoDB Atlas (mongoose)
-- Redux-toolkit
 - Tailwind CSS
 - SASS
 - Framer Motion
