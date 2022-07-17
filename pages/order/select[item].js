@@ -1,21 +1,21 @@
 import { motion, useAnimation } from "framer-motion";
-import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Navbar from "../../components/navbar";
-import ItemContext from "../../context/itemContext";
 import connectToDB from "../../db";
 import Cookie from "../../mongoModels/cookieSchema";
+import Image from "next/image";
 
 export async function getServerSideProps(context) {
 	await connectToDB();
-
 	const temp = await Cookie.findOne({ name: context.query.item });
-	const cookies = JSON.stringify(temp);
-	return { props: { cookies } };
+	const cookie = JSON.stringify(temp);
+	return { props: { cookie } };
 }
 
-function OrderSelect({ name, pic, price, qty, description }) {
+function OrderSelect({ cookie }) {
 	const [quantity, setQuantity] = useState(0);
+	const [currentCookie, setCurrentCookie] = useState(JSON.parse(cookie));
+
 	const control = useAnimation();
 
 	const buttonVariants = {
@@ -31,7 +31,7 @@ function OrderSelect({ name, pic, price, qty, description }) {
 	function disableButton() {
 		return quantity <= 0;
 	}
-	console.log("cookie");
+	console.log("cookie is: " + currentCookie.name + " " + currentCookie.price);
 
 	return (
 		<>
@@ -45,10 +45,18 @@ function OrderSelect({ name, pic, price, qty, description }) {
 			</div>
 			<Navbar></Navbar>
 			<div id="content-area">
+				<div className="order-item-pic-container">
+					<Image
+						className="order-item-pic"
+						src={currentCookie.pic}
+						layout="responsive"
+						width="100%"
+						height="100%"
+					></Image>
+				</div>
 				<span className="order-item-text">
-					Php {price} / Box of {qty}
+					Php {currentCookie.price} / Box of {currentCookie.qty}
 				</span>
-
 				<div className="order-item-quantity-container">
 					<motion.button
 						disabled={disableButton()}

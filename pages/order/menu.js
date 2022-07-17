@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import Navbar from "../../components/navbar";
 import OrderItem from "../../components/orderItem";
 import CartContext from "../../context/cartContext";
-import ItemContext from "../../context/itemContext";
 import connectToDB from "../../db";
 import Cookie from "../../mongoModels/cookieSchema";
 
@@ -15,9 +14,6 @@ export async function getServerSideProps() {
 }
 
 function Menu({ cookies }) {
-	//const cart = useContext(CartContext);
-	//const itemContext = useContext(ItemContext);
-
 	return (
 		<>
 			<div

@@ -1,11 +1,9 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
 import Link from "next/link";
-import ItemContext, { item } from "../context/itemContext";
+import React from "react";
 
 function OrderItem({ name, price, qty, description, pic }) {
-	const itemContext = useContext(ItemContext);
 	const control = useAnimation();
 
 	const cardVariants = {
@@ -27,22 +25,9 @@ function OrderItem({ name, price, qty, description, pic }) {
 			},
 		},
 	};
-	/*
-	function getItemContext() {
-		// @ts-ignore
-		itemContext.setItem({
-			name: name,
-			price: price,
-			qty: qty,
-			description: description,
-			pic: pic,
-		});
-	}
-*/
+
 	return (
-		<Link
-			href={{ pathname: "/order/orderSelect[item]", query: { item: name } }}
-		>
+		<Link href={{ pathname: "/order/select[item]", query: { item: name } }}>
 			<motion.a
 				whileTap="clicked"
 				whileHover="hover"
