@@ -4,11 +4,11 @@ export const cart = {
 	cookie: [
 		{
 			name: "",
-			setName: () => {},
+			setName: () => ({}),
 			price: 0,
-			setPrice: () => {},
+			setPrice: () => ({}),
 			qty: 0,
-			setQty: () => {},
+			setQty: () => ({}),
 		},
 	],
 };

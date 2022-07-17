@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Footer from "../components/footer";
 import "../styles/globals.scss";
 
 function __app({ Component, pageProps }) {
@@ -16,6 +17,7 @@ function __app({ Component, pageProps }) {
 				/>
 			</header>
 			<Component {...pageProps} />
+			<Footer></Footer>
 		</>
 	);
 }

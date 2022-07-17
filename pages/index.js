@@ -2,6 +2,7 @@ import Navbar from "../components/navbar";
 import scLogo3 from "../animations/scLogo3.json";
 import Lottie from "lottie-web";
 import React, { useEffect, useState } from "react";
+import Footer from "../components/footer";
 
 export default function Home() {
 	useEffect(() => {
@@ -28,6 +29,7 @@ export default function Home() {
 				></div>
 			</div>
 			<Navbar></Navbar>
+			<div id="content-area"></div>
 		</>
 	);
 }

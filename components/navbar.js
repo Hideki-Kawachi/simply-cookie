@@ -13,9 +13,9 @@ const menuVariants = {
 		width: "100%",
 		transition: {
 			ease: "easeInOut",
-			staggerChildren: "0.15",
+			staggerChildren: "0.1",
 			when: "beforeChildren",
-			duration: 0.5,
+			duration: 0.35,
 		},
 	},
 	end: {
@@ -24,10 +24,10 @@ const menuVariants = {
 		overflow: "hidden",
 		transition: {
 			ease: "easeOut",
-			staggerChildren: "0.1",
+			staggerChildren: "0.08",
 			when: "afterChildren",
 			staggerDirection: "-1",
-			duration: 0.3,
+			duration: 0.2,
 		},
 	},
 };
@@ -42,7 +42,7 @@ const itemVariants = {
 		opacity: 1,
 		transition: {
 			ease: "easeIn",
-			duration: "0.3",
+			duration: "0.2",
 		},
 	},
 	end: {
@@ -50,7 +50,7 @@ const itemVariants = {
 		opacity: 0,
 		transition: {
 			ease: "easeIn",
-			duration: "0.3",
+			duration: "0.2",
 		},
 	},
 	startHover: {
