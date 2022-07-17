@@ -37,6 +37,7 @@ function OrderItem({ name, price, qty, description, pic }) {
 			>
 				<div className="order-item-pic-container">
 					<Image
+						alt={name}
 						className="order-item-pic"
 						src={pic}
 						layout="responsive"

@@ -44,6 +44,7 @@ function OrderSelect({ cookie }) {
 			<div id="content-area">
 				<div id="item-select" className="order-item-pic-container">
 					<Image
+						alt={currentCookie.name}
 						className="order-item-pic"
 						src={currentCookie.pic}
 						layout="responsive"

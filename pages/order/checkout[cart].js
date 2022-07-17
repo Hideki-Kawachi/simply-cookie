@@ -1,12 +1,16 @@
-import React from 'react';
+import React from "react";
 
 export async function getServerSideProps(context) {
-    context.query
+	context.query;
 	return { props: { cookies } };
 }
 
 function Checkout() {
-    return (  );
+	return (
+		<>
+			<span>Checkout</span>
+		</>
+	);
 }
 
 export default Checkout;
