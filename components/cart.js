@@ -1,15 +1,59 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CartContext from "../context/cartContext";
 import Link from "next/link";
 
-function Cart() {
-	const cartContext = useContext(CartContext);
-	//const cart = cartContext.cookie;
+function Cart({ quantity }) {
+	const [cartNumber, setCartNumber] = useState(quantity);
+	const [cart, setCart] = useState([{}]);
+
+	useEffect(() => {
+		let tempNumber;
+		if (sessionStorage.getItem("cart") == null) {
+			sessionStorage.setItem(
+				"cart",
+				JSON.stringify([{ name: "", price: 0, qty: 0 }])
+			);
+		}
+
+		let sessionCart = JSON.parse(sessionStorage.getItem("cart"));
+
+		if (sessionCart[0].name == "") {
+			tempNumber = 0;
+		} else {
+			tempNumber = sessionCart.length;
+		}
+
+		if (cartNumber !== tempNumber) {
+			setCartNumber(tempNumber);
+		}
+		updateCart(sessionCart);
+	}, []);
+
+	useEffect(() => {
+		setCartNumber(quantity);
+		let sessionCart = sessionStorage.getItem("cart");
+		if (sessionCart != null) {
+			updateCart(JSON.parse(sessionCart));
+		}
+	}, [quantity]);
+
+	function updateCart(sessionCart) {
+		let tempCart = [];
+		sessionCart.forEach((item) => {
+			tempCart.push({ name: item.name, qty: item.qty });
+		});
+		setCart(tempCart);
+	}
 
 	return (
-		<Link href={{ pathname: "/order/checkout[cart]", query: { cart: "cart" } }}>
+		<Link
+			href={{
+				pathname: "/order/checkout[cart]",
+				query: { cart: JSON.stringify(cart) },
+			}}
+		>
 			<a className="cart-container">
-				<span className="cart-number">{cartContext.cookie.length}</span>
+				<span className="cart-number">{cartNumber}</span>
 				<svg
 					width="40"
 					height="40"

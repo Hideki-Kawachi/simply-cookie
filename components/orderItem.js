@@ -3,7 +3,7 @@ import { motion, useAnimation } from "framer-motion";
 import Link from "next/link";
 import React from "react";
 
-function OrderItem({ name, price, qty, description, pic }) {
+function OrderItem({ name, quantity, description, pic }) {
 	const control = useAnimation();
 
 	const cardVariants = {

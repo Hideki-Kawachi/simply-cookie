@@ -1,8 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import "../styles/globals.scss";
 
 function __app({ Component, pageProps }) {
+	useEffect(() => {
+		if (sessionStorage.getItem("cart") == null) {
+			sessionStorage.setItem(
+				"cart",
+				JSON.stringify([{ name: "", price: 0, qty: 0 }])
+			);
+			console.log("new session is: " + sessionStorage.getItem("cart"));
+		}
+		/*
+		else {
+			var cart = JSON.parse(sessionStorage.getItem("cart"));
+			cart.push({ name: "sc classic", price: 240, qty: 5 });
+			sessionStorage.setItem("cart", JSON.stringify(cart));
+			console.log(
+				"fetched session storage is: " + sessionStorage.getItem("cart")
+			);
+		}
+		*/
+	}, []);
+
 	return (
 		<>
 			<header>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Cart from "../../components/cart";
 import Navbar from "../../components/navbar";
 import OrderItem from "../../components/orderItem";
@@ -15,6 +15,37 @@ export async function getServerSideProps() {
 }
 
 function Menu({ cookies }) {
+	const [quantity, setQuantity] = useState();
+	let sessionCookies;
+
+	useEffect(() => {
+		if (sessionStorage.getItem("cart") != null) {
+			let tempCart = JSON.parse(sessionStorage.getItem("cart"));
+			if (tempCart[0].name == "") {
+				setQuantity(0);
+			} else {
+				let tempQuantity = 0;
+				tempCart.map((cookie) => {
+					tempQuantity += cookie.qty;
+				});
+				setQuantity(tempQuantity);
+				/*
+				cookies.map((cookie) => {
+					if (!tempCart.includes(cookie.name)) {
+						tempCart.push({
+							name: cookie.name,
+							price: cookie.price,
+							qty: cookie.quantity,
+						});
+					}
+				});
+				sessionCookies = tempCart;
+				console.log("sessino cookies are--" + JSON.stringify(sessionCookies));
+				*/
+			}
+		}
+	}, []);
+
 	return (
 		<>
 			<div
@@ -32,13 +63,12 @@ function Menu({ cookies }) {
 						key={cookie.name}
 						pic={cookie.pic}
 						name={cookie.name}
-						price={cookie.price}
-						qty={cookie.qty}
+						quantity={quantity}
 						description={cookie.description}
 					></OrderItem>
 				))}
 			</div>
-			<Cart></Cart>
+			<Cart quantity={quantity}></Cart>
 		</>
 	);
 }

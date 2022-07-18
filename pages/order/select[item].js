@@ -1,10 +1,11 @@
 import { motion, useAnimation } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../../components/navbar";
 import connectToDB from "../../db";
 import Cookie from "../../mongoModels/cookieSchema";
 import Image from "next/image";
 import Cart from "../../components/cart";
+import { useDidMountEffect } from "../../components/hooks";
 
 export async function getServerSideProps(context) {
 	await connectToDB();
@@ -14,11 +15,11 @@ export async function getServerSideProps(context) {
 }
 
 function OrderSelect({ cookie }) {
-	const [quantity, setQuantity] = useState(0);
+	const [cookieQuantity, setCookieQuantity] = useState(0);
 	const [currentCookie, setCurrentCookie] = useState(JSON.parse(cookie));
+	const [quantity, setQuantity] = useState();
 
 	const control = useAnimation();
-
 	const buttonVariants = {
 		clicked: {
 			scale: 0.9,
@@ -30,9 +31,97 @@ function OrderSelect({ cookie }) {
 	};
 
 	function disableButton() {
-		return quantity <= 0;
+		return cookieQuantity <= 0;
 	}
-	//console.log("cookie is: " + currentCookie.name + " " + currentCookie.price);
+
+	function updateQuantity(cart) {
+		let tempQuantity = 0;
+		cart.map((cookie) => {
+			tempQuantity += cookie.qty;
+		});
+		setQuantity(tempQuantity);
+		sessionStorage.setItem("cart", JSON.stringify(cart));
+	}
+
+	useEffect(() => {
+		if (sessionStorage.getItem("cart") != null) {
+			let tempCart = JSON.parse(sessionStorage.getItem("cart"));
+			updateQuantity(tempCart);
+			if (tempCart[0].name != "") {
+				let sessionCookie = tempCart.find((cookie, index) => {
+					return cookie.name == currentCookie.name;
+				});
+				if (sessionCookie == undefined) {
+					setCookieQuantity(0);
+				} else {
+					setCookieQuantity(sessionCookie.qty);
+				}
+			}
+		}
+	}, []);
+
+	useEffect(() => {
+		//console.log("from changing qty: " + sessionStorage.getItem("cart"));
+		if (sessionStorage.getItem("cart") != null) {
+			let tempCart = JSON.parse(sessionStorage.getItem("cart"));
+			if (cookieQuantity > 0) {
+				if (tempCart[0].name != "") {
+					let sessionCookie = tempCart.find((cookie, index) => {
+						if (cookie.name == currentCookie.name) {
+							tempCart[index] = {
+								name: currentCookie.name,
+								price: currentCookie.price,
+								qty: cookieQuantity,
+							};
+							return true;
+						}
+					});
+
+					if (sessionCookie == undefined) {
+						tempCart.push({
+							name: currentCookie.name,
+							price: currentCookie.price,
+							qty: cookieQuantity,
+						});
+					}
+					updateQuantity(tempCart);
+				} else {
+					sessionStorage.setItem(
+						"cart",
+						JSON.stringify([
+							{
+								name: currentCookie.name,
+								price: currentCookie.price,
+								qty: cookieQuantity,
+							},
+						])
+					);
+					updateQuantity([
+						{
+							name: currentCookie.name,
+							price: currentCookie.price,
+							qty: cookieQuantity,
+						},
+					]);
+				}
+			}
+		}
+	}, [cookieQuantity]);
+
+	function detectMinus() {
+		if (cookieQuantity == 1) {
+			let tempCart = JSON.parse(sessionStorage.getItem("cart"));
+			let newCart = tempCart.filter((currCookie) => {
+				return currCookie.name != currentCookie.name;
+			});
+			if (newCart.length == 0) {
+				newCart[0] = { name: "", price: 0, qty: 0 };
+			}
+			updateQuantity(newCart);
+			sessionStorage.setItem("cart", JSON.stringify(newCart));
+		}
+		setCookieQuantity(cookieQuantity - 1);
+	}
 
 	return (
 		<>
@@ -67,7 +156,7 @@ function OrderSelect({ cookie }) {
 						whileTap="clicked"
 						animate={control}
 						variants={buttonVariants}
-						onClick={() => setQuantity(quantity - 1)}
+						onClick={() => detectMinus()}
 					>
 						<svg
 							width="24"
@@ -85,12 +174,12 @@ function OrderSelect({ cookie }) {
 							/>
 						</svg>
 					</motion.button>
-					<span>{quantity}</span>
+					<span>{cookieQuantity}</span>
 					<motion.button
 						whileTap="clicked"
 						animate={control}
 						variants={buttonVariants}
-						onClick={() => setQuantity(quantity + 1)}
+						onClick={() => setCookieQuantity(cookieQuantity + 1)}
 					>
 						<svg
 							width="24"
@@ -110,7 +199,7 @@ function OrderSelect({ cookie }) {
 					</motion.button>
 				</div>
 			</div>
-			<Cart></Cart>
+			<Cart quantity={quantity}></Cart>
 		</>
 	);
 }
