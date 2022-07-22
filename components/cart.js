@@ -57,12 +57,10 @@ function Cart({ quantity }) {
 		setCart(tempCart);
 	}
 
-	function numberAnimation() {}
-
 	const isCartEmpty = () => {
 		if (cartNumber == 0) {
 			return (
-				<div className="cart-container" onClick={() => numberAnimation()}>
+				<div className="cart-container">
 					<motion.span animate={control} className="cart-number">
 						0
 					</motion.span>
