@@ -5,7 +5,6 @@ import connectToDB from "../../db";
 import Cookie from "../../mongoModels/cookieSchema";
 import Image from "next/image";
 import Cart from "../../components/cart";
-import { useDidMountEffect } from "../../components/hooks";
 
 export async function getServerSideProps(context) {
 	await connectToDB();
