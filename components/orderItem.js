@@ -52,8 +52,6 @@ function OrderItem({ name, quantity, description, pic }) {
 				</div>
 			</motion.a>
 		</Link>
-
-		/*<motion.div whileTap="clicked" whileHover="hover" animate={control} variants={cardVariants} className='order-item-main' onClick={()=>router.push("/orderSelect")}>*/
 	);
 }
 

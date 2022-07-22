@@ -42,6 +42,7 @@ function OrderSelect({ cookie }) {
 		setQuantity(tempQuantity);
 		sessionStorage.setItem("cart", JSON.stringify(cart));
 	}
+	2;
 
 	useEffect(() => {
 		if (sessionStorage.getItem("cart") != null) {
