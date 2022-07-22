@@ -67,6 +67,7 @@ function Checkout({ cart, cookies }) {
 			<div id="content-area">
 				{finalCart.map((item) => (
 					<CheckoutItem
+						key={item.name}
 						name={item.name}
 						price={item.price}
 						qty={item.qty}
