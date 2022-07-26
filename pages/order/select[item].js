@@ -1,15 +1,17 @@
 import { motion, useAnimation } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar";
 import connectToDB from "../../db";
 import Cookie from "../../mongoModels/cookieSchema";
 import Image from "next/image";
 import Cart from "../../components/cart";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
 	await connectToDB();
-	const temp = await Cookie.findOne({ name: context.query.item });
-	const cookie = JSON.stringify(temp);
+	let temp, cookie;
+	temp = await Cookie.findOne({ name: context.query.item });
+	cookie = JSON.stringify(temp);
 	return { props: { cookie } };
 }
 
@@ -19,6 +21,8 @@ function OrderSelect({ cookie }) {
 	const [quantity, setQuantity] = useState();
 
 	const control = useAnimation();
+	const router = useRouter();
+
 	const buttonVariants = {
 		clicked: {
 			scale: 0.9,
@@ -41,7 +45,6 @@ function OrderSelect({ cookie }) {
 		setQuantity(tempQuantity);
 		sessionStorage.setItem("cart", JSON.stringify(cart));
 	}
-	2;
 
 	useEffect(() => {
 		if (sessionStorage.getItem("cart") != null) {
@@ -122,6 +125,15 @@ function OrderSelect({ cookie }) {
 		}
 		setCookieQuantity(cookieQuantity - 1);
 	}
+
+	//redirect to menu when going back
+	useEffect(() => {
+		router.beforePopState(() => {
+			router.push("/order/menu");
+			console.log("pop state");
+			return false;
+		});
+	}, []);
 
 	return (
 		<>

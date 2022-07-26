@@ -9,7 +9,6 @@ function __app({ Component, pageProps }) {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		let StartTime = 0;
 		if (sessionStorage.getItem("cart") == null) {
 			sessionStorage.setItem(
 				"cart",

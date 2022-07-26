@@ -61,9 +61,6 @@ function Cart({ quantity }) {
 		if (cartNumber == 0) {
 			return (
 				<div className="cart-container">
-					<motion.span animate={control} className="cart-number">
-						0
-					</motion.span>
 					<svg
 						width="40"
 						height="40"

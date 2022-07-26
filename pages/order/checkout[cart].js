@@ -1,16 +1,19 @@
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import CheckoutItem from "../../components/checkoutItem";
+import CheckoutCartList from "../../components/checkoutDrops/checkoutCartList";
+import CheckoutDeliveryList from "../../components/checkoutDrops/checkoutDeliveryList";
 import Navbar from "../../components/navbar";
+import OrderSteps from "../../components/orderSteps";
 import connectToDB from "../../db";
 import Cookie from "../../mongoModels/cookieSchema";
 
 export async function getServerSideProps(context) {
 	await connectToDB();
+
 	const cart = JSON.parse(context.query.cart);
-
 	let temp = await findCookies(cart);
-
 	let cookies = JSON.stringify(temp);
+
 	return { props: { cart: context.query.cart, cookies: cookies } };
 }
 
@@ -51,7 +54,6 @@ function Checkout({ cart, cookies }) {
 		});
 		setTotal(tempTotal);
 	}, []);
-	//console.log("final cart is:" + JSON.stringify(finalCart));
 
 	return (
 		<>
@@ -64,18 +66,12 @@ function Checkout({ cart, cookies }) {
 				</div>
 			</div>
 			<Navbar></Navbar>
-			<div id="content-area">
-				{finalCart.map((item) => (
-					<CheckoutItem
-						key={item.name}
-						name={item.name}
-						price={item.price}
-						qty={item.qty}
-						pic={item.pic}
-					></CheckoutItem>
-				))}
-				<hr className="checkout-line"></hr>
-				<span className="checkout-total">Total: Php {total}</span>
+			<div id="content-area" className="gap-1">
+				<CheckoutCartList
+					finalCart={finalCart}
+					total={total}
+				></CheckoutCartList>
+				<CheckoutDeliveryList></CheckoutDeliveryList>
 			</div>
 		</>
 	);
