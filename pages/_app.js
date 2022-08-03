@@ -14,7 +14,6 @@ function __app({ Component, pageProps }) {
 				"cart",
 				JSON.stringify([{ name: "", price: 0, qty: 0 }])
 			);
-			console.log("new session is: " + sessionStorage.getItem("cart"));
 		}
 
 		const start = () => {

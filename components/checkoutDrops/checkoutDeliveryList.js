@@ -1,20 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CheckoutDeliveryItem from "./checkoutDeliveryItem";
 
-function CheckoutDeliveryList() {
+function CheckoutDeliveryList({ schedule }) {
 	const [isOpen, setIsOpen] = useState(false);
+	const [deliveryDate, setDeliveryDate] = useState("");
 
 	const currDate = new Date();
 	currDate.setUTCDate(currDate.getUTCDate() + 2);
-	const deliveryDates = [];
-
-	for (let x = 0; x < 7; x++) {
-		currDate.setUTCDate(currDate.getUTCDate() + 1);
-		if (currDate.getUTCDay() == 6 || currDate.getUTCDay() == 0) {
-			deliveryDates.push(currDate.toDateString());
-		}
-	}
+	const scheduleJSON = JSON.parse(schedule);
+	const currentWeek = new Date(scheduleJSON.currentWeek);
 
 	const dropdownVariants = {
 		start: {
@@ -72,9 +67,14 @@ function CheckoutDeliveryList() {
 				exit="end"
 				variants={dropdownVariants}
 			>
-				{deliveryDates.map((date) => (
-					<motion.div key={date} variants={itemVariants}>
-						<CheckoutDeliveryItem date={date} slots={5}></CheckoutDeliveryItem>
+				{scheduleJSON.schedule.map((sched) => (
+					<motion.div key={sched.date} variants={itemVariants}>
+						<CheckoutDeliveryItem
+							date={sched.date}
+							slots={sched.slots}
+							setDeliveryDate={setDeliveryDate}
+							deliveryDate={deliveryDate}
+						></CheckoutDeliveryItem>
 					</motion.div>
 				))}
 			</motion.div>

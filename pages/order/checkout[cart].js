@@ -2,10 +2,12 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import CheckoutCartList from "../../components/checkoutDrops/checkoutCartList";
 import CheckoutDeliveryList from "../../components/checkoutDrops/checkoutDeliveryList";
+import CheckoutPayment from "../../components/checkoutDrops/checkoutPayment";
 import Navbar from "../../components/navbar";
 import OrderSteps from "../../components/orderSteps";
 import connectToDB from "../../db";
 import Cookie from "../../mongoModels/cookieSchema";
+import Schedule from "../../mongoModels/scheduleSchema";
 
 export async function getServerSideProps(context) {
 	await connectToDB();
@@ -13,8 +15,48 @@ export async function getServerSideProps(context) {
 	const cart = JSON.parse(context.query.cart);
 	let temp = await findCookies(cart);
 	let cookies = JSON.stringify(temp);
+	let schedTemp = await Schedule.find({});
+	let sched = JSON.stringify(schedTemp[0]);
+	let currentDay = new Date();
+	let currentWeek = new Date(schedTemp[0].currentWeek);
+	let counter = 0;
 
-	return { props: { cart: context.query.cart, cookies: cookies } };
+	while (currentWeek.toDateString() != currentDay.toDateString()) {
+		currentWeek.setDate(currentWeek.getDate() + 1);
+		counter++;
+	}
+
+	//handles when the delivery schedule / order dates are reset... currently resets every sunday
+	// and re-updates delviery schedule to saturday and sunday with 5 slots each
+	if (counter > 0 && currentDay.getDay() == 0) {
+		let newDate = new Date();
+		let newSched = []; // new schedule for delivery
+		const slots = 5; //number of slots
+
+		newDate.setDate(currentDay.getDate() + 6); // update to saturday
+		newSched.push({ date: new Date(newDate), slots: slots });
+
+		newDate.setDate(newDate.getDate() + 1); // update to sunday
+		newSched.push({ date: new Date(newDate), slots: slots });
+
+		console.log("new Sched is:" + JSON.stringify(newSched));
+		Schedule.updateOne(
+			{},
+			{ currentWeek: currentDay, schedule: newSched },
+			(err, result) => {
+				if (err) {
+					console.log("error from updating sched:" + err);
+				} else {
+					console.log("result of update is:" + result);
+				}
+			}
+		);
+	}
+
+	console.log("finished");
+	return {
+		props: { cart: context.query.cart, cookies: cookies, schedule: sched },
+	};
 }
 
 async function findCookies(cart) {
@@ -27,7 +69,7 @@ async function findCookies(cart) {
 	return final;
 }
 
-function Checkout({ cart, cookies }) {
+function Checkout({ cart, cookies, schedule }) {
 	const cookieJSON = JSON.parse(cookies);
 	const cartJSON = JSON.parse(cart);
 	const finalCart = [];
@@ -71,7 +113,8 @@ function Checkout({ cart, cookies }) {
 					finalCart={finalCart}
 					total={total}
 				></CheckoutCartList>
-				<CheckoutDeliveryList></CheckoutDeliveryList>
+				<CheckoutDeliveryList schedule={schedule}></CheckoutDeliveryList>
+				<CheckoutPayment></CheckoutPayment>
 			</div>
 		</>
 	);

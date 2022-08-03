@@ -142,7 +142,7 @@ function Navbar() {
 		<>
 			<motion.div
 				whileTap={{ scale: 0.7 }}
-				className="relative z-[99] float-right p-2 cursor-pointer"
+				className="absolute z-[99] right-0 p-2 cursor-pointer"
 				onClick={() => {
 					setIsOpen(!isOpen);
 				}}
