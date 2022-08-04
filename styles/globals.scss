@@ -430,10 +430,24 @@ html * {
 	}
 }
 
+.upload-icon{
+	width: 30px;
+}
+
+.upload-label{
+	display: flex;
+	justify-content:left;
+	gap: 10px;
+
+	span{
+		margin-top: 10px;
+	}
+}
+
 .carousel-main-container{
-	top: 20px;
-	width: 100vw;
-	height: calc(((100/4) * 3) * 1vw);
+	top: 50px;
+	width: 85vw;
+	height: calc((85/4) * 3 * 1vw);
 	overflow: hidden;
 	position: relative;
 }
@@ -442,9 +456,33 @@ html * {
 	position: relative;
 
 	.carousel-image{
-		width: 100vw;
+		width: 85vw;
 		position: absolute;
 	}
 }
+
+.our-cookie-card-main-container{
+	width: 100vw;
+	overflow: hidden;
+	padding: 25px;
+}
+
+.our-cookie-card-pic-container{
+	position: relative;
+	width: 100%;
+}
+
+.our-cookie-card-title{
+	font-family: "Caramel", cursive;
+	position: relative;
+	font-size: 30px;
+	font-weight: 700;
+	color: black;
+}
+
+.our-cookie-card-description{
+	position: relative;
+}
+
 
 
