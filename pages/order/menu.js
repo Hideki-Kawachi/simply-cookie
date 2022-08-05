@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Cart from "../../components/cart";
 import Navbar from "../../components/navbar";
 import OrderItem from "../../components/orderItem";
-import CartContext from "../../context/cartContext";
 import connectToDB from "../../db";
 import Cookie from "../../mongoModels/cookieSchema";
 

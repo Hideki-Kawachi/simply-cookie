@@ -2,9 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
 
-function OurCookieCard({ name, pic }) {
-	console.log("name:", name, "pic:", pic);
-
+function OurCookieCard({ name, pic, description, position }) {
 	const mainVariant = {
 		initial: {
 			opacity: 1,
@@ -62,10 +60,20 @@ function OurCookieCard({ name, pic }) {
 		},
 	};
 
+	/*
+	style={
+				position % 2 == 0
+					? { backgroundColor: "rgba(48, 48, 48, 0.5)" }
+					: { backgroundColor: "rgba(190, 190, 190, 0.5)" }
+			}
+	*/
+
+	console.log("position:", position, "cookie:", name);
 	return (
 		<motion.div
 			className="our-cookie-card-main-container"
 			variants={mainVariant}
+			style={position == 1 ? { paddingTop: "50px", paddingBottom: "0px" } : {}}
 		>
 			<motion.span className="our-cookie-card-title" variants={titleVariant}>
 				{name}
@@ -82,12 +90,12 @@ function OurCookieCard({ name, pic }) {
 					priority={true}
 				></Image>
 			</motion.div>
-			<motion.span
-				className="our-cookie-card-description"
+			<motion.div
+				className="our-cookie-card-description-container"
 				variants={descriptionVariant}
 			>
-				description stuff
-			</motion.span>
+				{description}
+			</motion.div>
 		</motion.div>
 	);
 }

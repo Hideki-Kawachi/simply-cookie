@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import CartContext from "../context/cartContext";
 import Link from "next/link";
 import { motion, useAnimation } from "framer-motion";
 

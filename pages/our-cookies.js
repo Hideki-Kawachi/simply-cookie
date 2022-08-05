@@ -1,30 +1,22 @@
 import { motion } from "framer-motion";
 import { stringifyQuery } from "next/dist/server/server-route-utils";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
 import OurCookieCard from "../components/ourCookieCard";
+import connectToDB from "../db";
+import OurCookie from "../mongoModels/ourCookieSchema";
 
 export async function getServerSideProps() {
-	const images = [
-		"https://res.cloudinary.com/cloudurlhc/image/upload/v1659546418/Simply-Cookie/our%20cookies/SC%20CLASSIC.png",
-		"https://res.cloudinary.com/cloudurlhc/image/upload/v1659546399/Simply-Cookie/our%20cookies/CHOCO%20WALNUT.png",
-	];
+	await connectToDB();
 
-	let cookies = [];
+	const ourCookies = JSON.stringify(await OurCookie.find({}));
 
-	images.forEach((item, index) => {
-		let splitImages = item.split("/");
-		let temp = splitImages[splitImages.length - 1].split("%20");
-		let tempName = temp[0].concat(" ", temp[1]);
-		let newName = tempName.split(".");
-
-		cookies.push({ name: newName[0], pic: item });
-	});
-
-	return { props: { cookies } };
+	return { props: { ourCookies } };
 }
 
-function OurCookies({ cookies }) {
+function OurCookies({ ourCookies }) {
+	const [cookies, setCookies] = useState(JSON.parse(ourCookies));
+
 	const mainVariant = {
 		initial: {
 			opacity: 1,
@@ -48,13 +40,20 @@ function OurCookies({ cookies }) {
 				</div>
 			</div>
 			<Navbar></Navbar>
-			<div id="content-area">
-				<motion.div initial="initial" animate="animate" variants={mainVariant}>
+			<div id="content-area" style={{ padding: 0 }}>
+				<motion.div
+					initial="initial"
+					animate="animate"
+					variants={mainVariant}
+					className="our-cookie-gradient"
+				>
 					{cookies.map((cookie, index) => (
 						<OurCookieCard
 							key={index}
+							position={index + 1}
 							name={cookie.name}
 							pic={cookie.pic}
+							description={cookie.description}
 						></OurCookieCard>
 					))}
 				</motion.div>
