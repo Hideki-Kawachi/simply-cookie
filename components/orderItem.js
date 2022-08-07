@@ -26,32 +26,49 @@ function OrderItem({ name, quantity, description, pic }) {
 		},
 	};
 
+	const mainVariants = {
+		initial: {
+			y: -20,
+			opacity: -0.5,
+		},
+		animate: {
+			y: 0,
+			opacity: 1,
+			transition: {
+				ease: "easeOut",
+				duration: 0.8,
+			},
+		},
+	};
+
 	return (
-		<Link href={{ pathname: "/order/select[item]", query: { item: name } }}>
-			<motion.a
-				whileTap="clicked"
-				whileHover="hover"
-				animate={control}
-				variants={cardVariants}
-				className="order-item-main"
-			>
-				<div className="order-item-pic-container">
-					<Image
-						alt={name}
-						className="order-item-pic"
-						src={pic}
-						layout="responsive"
-						width="100%"
-						height="100%"
-					></Image>
-				</div>
-				<div className="order-item-description-container">
-					<h1 className="order-item-name">{name}</h1>
-					<hr></hr>
-					<span className="order-item-description">{description}</span>
-				</div>
-			</motion.a>
-		</Link>
+		<motion.div variants={mainVariants}>
+			<Link href={{ pathname: "/order/select[item]", query: { item: name } }}>
+				<motion.a
+					whileTap="clicked"
+					whileHover="hover"
+					animate={control}
+					variants={cardVariants}
+					className="order-item-main"
+				>
+					<div className="order-item-pic-container">
+						<Image
+							alt={name}
+							className="order-item-pic"
+							src={pic}
+							layout="responsive"
+							width="100%"
+							height="100%"
+						></Image>
+					</div>
+					<div className="order-item-description-container">
+						<h1 className="order-item-name">{name}</h1>
+						<hr></hr>
+						<span className="order-item-description">{description}</span>
+					</div>
+				</motion.a>
+			</Link>
+		</motion.div>
 	);
 }
 

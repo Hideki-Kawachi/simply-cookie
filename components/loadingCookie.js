@@ -2,8 +2,6 @@ import { motion } from "framer-motion";
 import React from "react";
 
 function LoadingCookie() {
-	const loadingVariants = {};
-
 	return (
 		<motion.div
 			id="loading-cookie"

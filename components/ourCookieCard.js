@@ -68,7 +68,6 @@ function OurCookieCard({ name, pic, description, position }) {
 			}
 	*/
 
-	console.log("position:", position, "cookie:", name);
 	return (
 		<motion.div
 			className="our-cookie-card-main-container"

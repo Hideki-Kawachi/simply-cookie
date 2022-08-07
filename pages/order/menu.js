@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import Cart from "../../components/cart";
 import Navbar from "../../components/navbar";
@@ -28,22 +29,22 @@ function Menu({ cookies }) {
 					tempQuantity += cookie.qty;
 				});
 				setQuantity(tempQuantity);
-				/*
-				cookies.map((cookie) => {
-					if (!tempCart.includes(cookie.name)) {
-						tempCart.push({
-							name: cookie.name,
-							price: cookie.price,
-							qty: cookie.quantity,
-						});
-					}
-				});
-				sessionCookies = tempCart;
-				console.log("sessino cookies are--" + JSON.stringify(sessionCookies));
-				*/
 			}
 		}
 	}, []);
+
+	const mainVariants = {
+		initial: {
+			opacity: 1,
+		},
+		animate: {
+			opacity: 1,
+			transition: {
+				ease: "easeInOut",
+				staggerChildren: 0.4,
+			},
+		},
+	};
 
 	return (
 		<>
@@ -56,15 +57,24 @@ function Menu({ cookies }) {
 			</div>
 			<Navbar></Navbar>
 			<div id="content-area">
-				{JSON.parse(cookies).map((cookie) => (
-					<OrderItem
-						key={cookie.name}
-						pic={cookie.pic}
-						name={cookie.name}
-						quantity={quantity}
-						description={cookie.description}
-					></OrderItem>
-				))}
+				<AnimatePresence>
+					<motion.div
+						className="menu-main-card-container"
+						variants={mainVariants}
+						initial="initial"
+						animate="animate"
+					>
+						{JSON.parse(cookies).map((cookie) => (
+							<OrderItem
+								key={cookie.name}
+								pic={cookie.pic}
+								name={cookie.name}
+								quantity={quantity}
+								description={cookie.description}
+							></OrderItem>
+						))}
+					</motion.div>
+				</AnimatePresence>
 			</div>
 			<Cart quantity={quantity}></Cart>
 		</>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const menuVariants = {
 	start: {
@@ -69,6 +70,19 @@ const itemVariants = {
 
 function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);
+	const [link, setLink] = useState("");
+	const router = useRouter();
+
+	useEffect(() => {
+		if (link.length > 0) {
+			router.push(link);
+		}
+	}, [link]);
+
+	function linkClicked(newLink) {
+		setIsOpen(false);
+		setTimeout(() => setLink(newLink), 720);
+	}
 
 	const menuPop = {
 		true: (
@@ -79,45 +93,37 @@ function Navbar() {
 				exit="end"
 				variants={menuVariants}
 			>
-				<Link href="/">
-					<motion.a
-						className="menu-items"
-						variants={itemVariants}
-						onClick={() => setIsOpen(false)}
-					>
-						HOME
-					</motion.a>
-				</Link>
+				<motion.span
+					className="menu-items"
+					variants={itemVariants}
+					onClick={() => linkClicked("/")}
+				>
+					HOME
+				</motion.span>
 
-				<Link href="/our-cookies">
-					<motion.a
-						className="menu-items"
-						variants={itemVariants}
-						onClick={() => setIsOpen(false)}
-					>
-						OUR COOKIES
-					</motion.a>
-				</Link>
+				<motion.span
+					className="menu-items"
+					variants={itemVariants}
+					onClick={() => linkClicked("/our-cookies")}
+				>
+					OUR COOKIES
+				</motion.span>
 
-				<Link href="/order/menu">
-					<motion.a
-						className="menu-items"
-						variants={itemVariants}
-						onClick={() => setIsOpen(false)}
-					>
-						ORDER
-					</motion.a>
-				</Link>
+				<motion.span
+					className="menu-items"
+					variants={itemVariants}
+					onClick={() => linkClicked("/order/menu")}
+				>
+					ORDER
+				</motion.span>
 
-				<Link href="/about-us">
-					<motion.a
-						className="menu-items"
-						variants={itemVariants}
-						onClick={() => setIsOpen(false)}
-					>
-						ABOUT US
-					</motion.a>
-				</Link>
+				<motion.span
+					className="menu-items"
+					variants={itemVariants}
+					onClick={() => linkClicked("/about-us")}
+				>
+					ABOUT US
+				</motion.span>
 			</motion.div>
 		),
 	};

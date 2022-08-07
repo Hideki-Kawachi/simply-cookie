@@ -1,4 +1,4 @@
-import { motion, useAnimation } from "framer-motion";
+import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar";
 import connectToDB from "../../db";
@@ -135,6 +135,48 @@ function OrderSelect({ cookie }) {
 		});
 	}, []);
 
+	const picVariant = {
+		initial: {
+			opacity: 0,
+			x: "-100%",
+		},
+		animate: {
+			opacity: 1,
+			x: 0,
+			transition: {
+				ease: "easeOut",
+				duration: 0.8,
+			},
+		},
+	};
+
+	const captionVariant = {
+		initial: {
+			opacity: 0,
+			x: "100%",
+		},
+		animate: {
+			opacity: 1,
+			x: 0,
+			transition: {
+				ease: "easeOut",
+				duration: 0.8,
+			},
+		},
+	};
+
+	const mainVariant = {
+		initial: {
+			opacity: 1,
+		},
+		animate: {
+			opacity: 1,
+			transition: {
+				staggerChildren: 0.2,
+			},
+		},
+	};
+
 	return (
 		<>
 			<div
@@ -145,22 +187,38 @@ function OrderSelect({ cookie }) {
 			</div>
 			<Navbar></Navbar>
 			<div id="content-area">
-				<div id="item-select" className="order-item-pic-container">
-					<Image
-						alt={currentCookie.name}
-						className="order-item-pic"
-						src={currentCookie.pic}
-						layout="responsive"
-						width="100%"
-						height="100%"
-					></Image>
-				</div>
-				<div className="order-item-caption-container">
-					<h1 className="order-item-name">{currentCookie.name}</h1>
-					<span className="order-item-description-select">
-						{currentCookie.description}
-					</span>
-				</div>
+				<AnimatePresence>
+					<motion.div
+						variants={mainVariant}
+						initial="initial"
+						animate="animate"
+						className="flex flex-col items-center"
+					>
+						<motion.div
+							id="item-select"
+							className="order-item-pic-container"
+							variants={picVariant}
+						>
+							<Image
+								alt={currentCookie.name}
+								className="order-item-pic"
+								src={currentCookie.pic}
+								layout="responsive"
+								width="100%"
+								height="100%"
+							></Image>
+						</motion.div>
+						<motion.div
+							className="order-item-caption-container"
+							variants={captionVariant}
+						>
+							<h1 className="order-item-name">{currentCookie.name}</h1>
+							<span className="order-item-description-select">
+								{currentCookie.description}
+							</span>
+						</motion.div>
+					</motion.div>
+				</AnimatePresence>
 				<span className="order-item-qty">
 					Php {currentCookie.price} / Box of {currentCookie.qty}
 				</span>
