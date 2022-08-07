@@ -140,7 +140,9 @@ function OrderSelect({ cookie }) {
 			<div
 				id="header"
 				className="h-[13vh] w-[100vw] flex flex-col justify-center"
-			></div>
+			>
+				<div className="background"></div>
+			</div>
 			<Navbar></Navbar>
 			<div id="content-area">
 				<div id="item-select" className="order-item-pic-container">

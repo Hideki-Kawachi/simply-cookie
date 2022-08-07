@@ -42,27 +42,6 @@ export default function Home({ carouselImages }) {
 		return () => clearInterval(timer.current);
 	});
 
-	/*
-	let timer = setInterval(() => {
-		console.log("hello 1");
-		if (position < carouselImages.length - 1) {
-			setPosition(position + 1);
-			console.log("asd");
-		} else {
-			setPosition(0);
-			console.log("asd");
-		}
-	}, 4000);
-	
-	
-	useEffect(
-		() => () => {
-			clearInterval(timer);
-		},
-		[]
-	);
-*/
-
 	useEffect(() => {
 		var logoAnimation = Lottie.loadAnimation({
 			// @ts-ignore
@@ -96,14 +75,13 @@ export default function Home({ carouselImages }) {
 
 	return (
 		<>
-			<div
-				id="header"
-				className="h-[13vh] w-[100vw] flex flex-col justify-center"
-			>
-				<div
-					id="logo"
-					className="w-[100px] h-[100px] overflow-hidden relative top-[50%]"
-				></div>
+			<div id="header" className="h-[13vh] w-[100vw]">
+				<div className="background">
+					<div
+						id="logo"
+						className="w-[100px] h-[100px] overflow-hidden relative top-[50%]"
+					></div>
+				</div>
 			</div>
 			<Navbar></Navbar>
 			<div id="content-area">

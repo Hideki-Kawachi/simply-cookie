@@ -24,19 +24,18 @@ function OurCookies({ ourCookies }) {
 		animate: {
 			opacity: 1,
 			transition: {
-				staggerChildren: 1.5,
+				staggerChildren: 1.8,
 			},
 		},
 	};
 
 	return (
 		<>
-			<div
-				id="header"
-				className="h-[13vh] w-[100vw] flex flex-col justify-center"
-			>
-				<div className="relative top-[50%] text-center">
-					<span id="header-text">OUR COOKIES</span>
+			<div id="header" className="h-[13vh] w-[100vw]">
+				<div className="background">
+					<div className="relative top-[50%] text-center">
+						<span id="header-text">OUR COOKIES</span>
+					</div>
 				</div>
 			</div>
 			<Navbar></Navbar>
