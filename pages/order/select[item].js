@@ -177,12 +177,24 @@ function OrderSelect({ cookie }) {
 		},
 	};
 
+	const itemAddVariant = {
+		initial: {
+			y: -20,
+			opacity: -0.5,
+		},
+		animate: {
+			y: 0,
+			opacity: 1,
+			transition: {
+				ease: "easeOut",
+				duration: 0.8,
+			},
+		},
+	};
+
 	return (
 		<>
-			<div
-				id="header"
-				className="h-[13vh] w-[100vw] flex flex-col justify-center"
-			>
+			<div id="header" className="flex flex-col justify-center">
 				<div className="background"></div>
 			</div>
 			<Navbar></Navbar>
@@ -192,7 +204,7 @@ function OrderSelect({ cookie }) {
 						variants={mainVariant}
 						initial="initial"
 						animate="animate"
-						className="flex flex-col items-center"
+						className="order-item-main-container"
 					>
 						<motion.div
 							id="item-select"
@@ -208,68 +220,75 @@ function OrderSelect({ cookie }) {
 								height="100%"
 							></Image>
 						</motion.div>
-						<motion.div
-							className="order-item-caption-container"
-							variants={captionVariant}
-						>
-							<h1 className="order-item-name">{currentCookie.name}</h1>
-							<span className="order-item-description-select">
-								{currentCookie.description}
-							</span>
-						</motion.div>
+						<div className="order-item-side-container">
+							<motion.div
+								className="order-item-caption-container"
+								variants={captionVariant}
+							>
+								<h1 className="order-item-name">{currentCookie.name}</h1>
+								<span className="order-item-description-select">
+									{currentCookie.description}
+								</span>
+							</motion.div>
+							<motion.div
+								className="order-item-add-container"
+								variants={itemAddVariant}
+							>
+								<span className="order-item-qty">
+									Php {currentCookie.price} / Box of {currentCookie.qty}
+								</span>
+								<div className="order-item-quantity-container">
+									<motion.button
+										disabled={disableButton()}
+										whileTap="clicked"
+										animate={control}
+										variants={buttonVariants}
+										onClick={() => detectMinus()}
+									>
+										<svg
+											width="24"
+											height="24"
+											strokeWidth="2"
+											viewBox="0 0 24 24"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M6 12H18"
+												stroke="currentColor"
+												strokeLinecap="round"
+												strokeLinejoin="round"
+											/>
+										</svg>
+									</motion.button>
+									<span>{cookieQuantity}</span>
+									<motion.button
+										whileTap="clicked"
+										animate={control}
+										variants={buttonVariants}
+										onClick={() => setCookieQuantity(cookieQuantity + 1)}
+									>
+										<svg
+											width="24"
+											height="24"
+											strokeWidth="2"
+											viewBox="0 0 24 24"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M6 12H12M18 12H12M12 12V6M12 12V18"
+												stroke="currentColor"
+												strokeLinecap="round"
+												strokeLinejoin="round"
+											/>
+										</svg>
+									</motion.button>
+								</div>
+							</motion.div>
+						</div>
 					</motion.div>
 				</AnimatePresence>
-				<span className="order-item-qty">
-					Php {currentCookie.price} / Box of {currentCookie.qty}
-				</span>
-				<div className="order-item-quantity-container">
-					<motion.button
-						disabled={disableButton()}
-						whileTap="clicked"
-						animate={control}
-						variants={buttonVariants}
-						onClick={() => detectMinus()}
-					>
-						<svg
-							width="24"
-							height="24"
-							strokeWidth="2"
-							viewBox="0 0 24 24"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								d="M6 12H18"
-								stroke="currentColor"
-								strokeLinecap="round"
-								strokeLinejoin="round"
-							/>
-						</svg>
-					</motion.button>
-					<span>{cookieQuantity}</span>
-					<motion.button
-						whileTap="clicked"
-						animate={control}
-						variants={buttonVariants}
-						onClick={() => setCookieQuantity(cookieQuantity + 1)}
-					>
-						<svg
-							width="24"
-							height="24"
-							strokeWidth="2"
-							viewBox="0 0 24 24"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								d="M6 12H12M18 12H12M12 12V6M12 12V18"
-								stroke="currentColor"
-								strokeLinecap="round"
-								strokeLinejoin="round"
-							/>
-						</svg>
-					</motion.button>
-				</div>
 			</div>
 			<Cart quantity={quantity}></Cart>
 		</>
