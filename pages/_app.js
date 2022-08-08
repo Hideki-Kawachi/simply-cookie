@@ -76,11 +76,11 @@ function __app({ Component, pageProps }) {
 		<>
 			{loading ? (
 				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					exit={{ opacity: 0 }}
+					initial={{ opacity: 0, height: `${document.body.scrollHeight}px` }}
+					animate={{ opacity: 1, height: `${document.body.scrollHeight}px` }}
+					exit={{ opacity: 0, height: `${document.body.scrollHeight}px` }}
 					transition={{ ease: "easeOut", duration: 0.15 }}
-					className="absolute w-[100vw] h-[100vh] z-[99]"
+					className="absolute top-0 bottom-0 right-0 left-0 z-[99]"
 				>
 					<LoadingCookie></LoadingCookie>
 					<div id="loading-container"></div>
