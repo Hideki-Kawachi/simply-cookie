@@ -38,7 +38,7 @@ export default function Home({ carouselImages }) {
 				position = 0;
 				setNewPosition(position);
 			}
-		}, 6000); // change your switch time here.
+		}, 4000); // change your switch time here.
 		return () => clearInterval(timer.current);
 	});
 
@@ -93,12 +93,12 @@ export default function Home({ carouselImages }) {
 								className="carousel-image"
 								initial={{
 									opacity: 0,
-									left: `${(index - newPosition) * 100}vw`,
+									left: `${(index - newPosition) * 92}vw`,
 								}}
 								animate={{
 									opacity: 1,
 									scale: index === position ? 1 : 0.9,
-									left: `${(index - newPosition) * 100}vw`,
+									left: `${(index - newPosition) * 92}vw`,
 								}}
 								transition={{
 									type: "easeInOut",
