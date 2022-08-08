@@ -168,11 +168,10 @@ html * {
 	align-items: flex-start;
 	margin: 10px 0px 10px 0px;
 	padding: 5px 5px 5px 5px;
-	border: 1px;
+	border: 1px solid map-get($map: $black, $key: 300);
 	background-color: map-get($map: $beige, $key: 100);
-	border-style: solid;
 	border-radius: 10px;
-	box-shadow: 0px 1px 3px 3px rgba(0, 0, 0, 0.25);
+	box-shadow: 0px 3px 2px 2px rgba(0, 0, 0, 0.25);
 	height: fit-content;
 	width: 95vw;
 	z-index: 5;
@@ -253,7 +252,7 @@ html * {
 		border-color: map-get($map: $black, $key: 100);
 		border-radius: 5px;
 		background-color: map-get($map: $pink, $key: 200);
-		box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.25);
+		box-shadow: 0px 3px 2px 2px rgba(0, 0, 0, 0.25);
 	}
 }
 
@@ -266,7 +265,7 @@ html * {
 	padding: 13px;
 	border-radius: 50%;
 	background-color: map-get($map: $pink, $key: 200);
-	box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.25);
+	box-shadow: 0px 3px 2px 2px rgba(0, 0, 0, 0.25);
 }
 
 .cart-number {
@@ -290,7 +289,7 @@ html * {
 	overflow-y: hidden;
 	overflow-x: scroll;
 	background-color: map-get($map: $beige, $key: 100);
-	box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.25);
+	box-shadow: 0px 3px 2px 2px rgba(0, 0, 0, 0.25);
 
 	-ms-overflow-style: none;
 	scrollbar-width: none;
@@ -438,7 +437,7 @@ html * {
 	text-align: center;
 	display: flex;
 	flex-direction: column;
-	box-shadow: 0px 1px 3px 3px rgba(0, 0, 0, 0.25);
+	box-shadow: 0px 3px 2px 2px rgba(0, 0, 0, 0.25);
 
 	&-clicked {
 		border: 1px;
@@ -452,7 +451,7 @@ html * {
 		text-align: center;
 		display: flex;
 		flex-direction: column;
-		box-shadow: 0px 1px 3px 3px rgba(0, 0, 0, 0.25);
+		box-shadow: 0px 3px 2px 2px rgba(0, 0, 0, 0.25);
 	}
 }
 
