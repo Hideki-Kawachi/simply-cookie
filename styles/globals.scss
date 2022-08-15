@@ -96,7 +96,8 @@ html * {
 	flex-direction: column;
 	align-items: center;
 	z-index: 0;
-	min-height: calc(100vh - 151px);
+	min-height: calc(100vh - 150px);;
+	height: fit-content;
 	background-image: url("../public/background.jpg");
 	overflow: hidden;
 }
@@ -106,7 +107,7 @@ html * {
 	background-size: 100%;
 	width: 100%;
 	height: 70px;
-	bottom: 0px;
+	position: relative;
 	
 	
 	.background{
@@ -302,15 +303,17 @@ html * {
 	border-radius: 50%;
 	background-color: map-get($map: $pink, $key: 200);
 	box-shadow: 0px 3px 2px 2px rgba(0, 0, 0, 0.25);
+	z-index: 97;
 }
 
 .cart-number {
 	position: fixed;
-	bottom: 9vh;
+	bottom: calc(9vh + 40px);
 	right: 8vw;
 	font-size: 24px;
 	font-weight: 600;
 	color: map-get($map: $brown, $key: 300);
+	z-index: 97;
 }
 
 .checkout-item-container {
@@ -579,13 +582,13 @@ html * {
 	}
 
 	.cart-container{
-		bottom: 10vh;
-		right: 15vw;
+		bottom: 14vh;
+		right: 20vw;
 	}
 
 	.cart-number{
-		bottom: 14vh;
-		right: 15.2vw;
+		bottom: calc(14vh + 40px);
+		right: 20.2vw;
 	}
 
 	.our-cookie-card-main-container{
