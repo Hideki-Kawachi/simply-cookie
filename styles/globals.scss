@@ -317,7 +317,7 @@ html * {
 }
 
 .checkout-item-container {
-	width: 92vw;
+	width: 100%;
 	height: max-content;
 	display: flex;
 	border: 1px;
@@ -380,6 +380,15 @@ html * {
 .checkout-total {
 	font-size: 18px;
 	font-weight: 500;
+}
+
+.checkout-submit-button{
+	border-radius: 5px;
+	border: 1px solid black;
+	box-shadow: 0px 3px 2px 2px rgba(0, 0, 0, 0.25);
+	margin-top: 10px;
+	padding: 5px;
+	background-color: map-get($map: $pink, $key: 300);
 }
 
 #order-steps-container {
@@ -623,6 +632,23 @@ html * {
 	.order-item-side-container{
 		max-width: 1000px;
 	}
+
+	.dropdown-container{
+		width: 40%;
+	}
+	
+	.dropdown-list-container{
+		width: 40%;
+	}
+
+	.checkout-item-pic-container{
+		width: 10vw;
+	}
+
+	.checkout-item-container{
+		width: 100%;
+	}
+
 }
 
 

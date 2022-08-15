@@ -6,13 +6,11 @@ function CheckoutPayment() {
 
 	const dropdownVariants = {
 		start: {
-			width: "95vw",
 			height: 0,
 			padding: 0,
 		},
 		show: {
 			height: "fit-content",
-			width: "95vw",
 			padding: "10px",
 			transition: {
 				ease: "easeInOut",
@@ -23,7 +21,6 @@ function CheckoutPayment() {
 		},
 		end: {
 			height: 0,
-			width: "95vw",
 			overflow: "hidden",
 			padding: 0,
 			transition: {

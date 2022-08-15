@@ -7,13 +7,11 @@ function CheckoutCartList({ finalCart, total }) {
 
 	const dropdownVariants = {
 		start: {
-			width: "95vw",
 			height: 0,
 			padding: 0,
 		},
 		show: {
 			height: "fit-content",
-			width: "95vw",
 			padding: "10px",
 			transition: {
 				ease: "easeInOut",
@@ -24,7 +22,6 @@ function CheckoutCartList({ finalCart, total }) {
 		},
 		end: {
 			height: 0,
-			width: "95vw",
 			overflow: "hidden",
 			padding: 0,
 			transition: {
@@ -76,7 +73,7 @@ function CheckoutCartList({ finalCart, total }) {
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					transition={{ ease: "easeInOut", duration: 0.2 }}
-					className="text-right"
+					className="w-full text-right"
 				>
 					<hr className="checkout-line"></hr>
 					<div className="flex flex-col">

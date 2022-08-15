@@ -96,6 +96,10 @@ function Checkout({ cart, cookies, schedule }) {
 		setTotal(tempTotal);
 	}, []);
 
+	function checkForm() {
+		console.log("Hello");
+	}
+
 	return (
 		<>
 			<div id="header">
@@ -113,6 +117,9 @@ function Checkout({ cart, cookies, schedule }) {
 				></CheckoutCartList>
 				<CheckoutDeliveryList schedule={schedule}></CheckoutDeliveryList>
 				<CheckoutPayment></CheckoutPayment>
+				<span onClick={() => checkForm()} className="checkout-submit-button">
+					Submit Order
+				</span>
 			</div>
 		</>
 	);
