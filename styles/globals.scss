@@ -24,7 +24,7 @@ $brown: (
 );
 $white: #f7f7f7;
 
-$backgroundColor: rgba(159, 147, 138, 0.7);
+$backgroundColor: rgba(95, 72, 53, 0.5);
 
 html * {
 	font-family: "Montserrat", sans-serif;
@@ -159,7 +159,7 @@ html * {
 	box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.25);
 	padding: 20px 10px 20px 10px;
 	gap: 15px;
-	max-width: 500px;
+	max-width: 600px;
 }
 
 @keyframes textHover {
@@ -170,6 +170,15 @@ html * {
 		transform: scale(1.1);
 		text-decoration: underline;
 	}
+}
+
+.order-item-submit-button{
+	padding: 10px;
+	margin-top: 20px;
+	border-radius: 10px;
+	background-color: map-get($map: $brown, $key: 200);
+	box-shadow: 0px 3px 2px 2px rgba(0, 0, 0, 0.25);
+	color: $white;
 }
 
 .order-item-main {
@@ -193,7 +202,7 @@ html * {
 	align-items: center;
 	padding: 0px 15px 0px 15px;
 	gap: 15px;
-	margin-top: 5%;
+	margin-top: 10px;
 }
 
 .qty {
@@ -565,6 +574,20 @@ html * {
 }
 
 @media (min-width: 500px){
+	.menu-main-card-container{
+		padding: 20px 30px 20px 30px;
+	}
+
+	.cart-container{
+		bottom: 10vh;
+		right: 15vw;
+	}
+
+	.cart-number{
+		bottom: 14vh;
+		right: 15.2vw;
+	}
+
 	.our-cookie-card-main-container{
 		padding: 0px;
 	}

@@ -63,6 +63,8 @@ function OrderSelect({ cookie }) {
 		}
 	}, []);
 
+	// For automatic changing of cart without pressing submit
+	/*	
 	useEffect(() => {
 		//console.log("from changing qty: " + sessionStorage.getItem("cart"));
 		if (sessionStorage.getItem("cart") != null) {
@@ -110,6 +112,7 @@ function OrderSelect({ cookie }) {
 			}
 		}
 	}, [cookieQuantity]);
+	*/
 
 	function detectMinus() {
 		if (cookieQuantity == 1) {
@@ -130,10 +133,57 @@ function OrderSelect({ cookie }) {
 	useEffect(() => {
 		router.beforePopState(() => {
 			router.push("/order/menu");
-			console.log("pop state");
 			return false;
 		});
 	}, []);
+
+	function submitCart() {
+		if (sessionStorage.getItem("cart") != null) {
+			let tempCart = JSON.parse(sessionStorage.getItem("cart"));
+			if (cookieQuantity > 0) {
+				if (tempCart[0].name != "") {
+					let sessionCookie = tempCart.find((cookie, index) => {
+						if (cookie.name == currentCookie.name) {
+							tempCart[index] = {
+								name: currentCookie.name,
+								price: currentCookie.price,
+								qty: cookieQuantity,
+							};
+							return true;
+						}
+					});
+
+					if (sessionCookie == undefined) {
+						tempCart.push({
+							name: currentCookie.name,
+							price: currentCookie.price,
+							qty: cookieQuantity,
+						});
+					}
+					updateQuantity(tempCart);
+				} else {
+					sessionStorage.setItem(
+						"cart",
+						JSON.stringify([
+							{
+								name: currentCookie.name,
+								price: currentCookie.price,
+								qty: cookieQuantity,
+							},
+						])
+					);
+					updateQuantity([
+						{
+							name: currentCookie.name,
+							price: currentCookie.price,
+							qty: cookieQuantity,
+						},
+					]);
+				}
+			}
+		}
+		router.push("/order/menu");
+	}
 
 	const picVariant = {
 		initial: {
@@ -285,6 +335,20 @@ function OrderSelect({ cookie }) {
 										</svg>
 									</motion.button>
 								</div>
+							</motion.div>
+							<motion.div
+								variants={itemAddVariant}
+								className="order-item-submit-container"
+							>
+								<motion.button
+									whileTap="clicked"
+									animate={control}
+									variants={buttonVariants}
+									onClick={() => submitCart()}
+									className="order-item-submit-button"
+								>
+									Confirm
+								</motion.button>
 							</motion.div>
 						</div>
 					</motion.div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 function CheckoutDeliveryItem({ date, slots, setDeliveryDate, deliveryDate }) {
 	const [isClicked, setIsClicked] = useState(false);
-	const dateShow = new Date(date).toDateString();
+	const dateShow = new Date(new Date(date).toUTCString()).toDateString();
 
 	function clicked() {
 		setIsClicked(!isClicked);

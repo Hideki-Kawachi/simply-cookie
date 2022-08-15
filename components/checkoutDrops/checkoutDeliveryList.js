@@ -6,10 +6,7 @@ function CheckoutDeliveryList({ schedule }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [deliveryDate, setDeliveryDate] = useState("");
 
-	const currDate = new Date();
-	currDate.setUTCDate(currDate.getUTCDate() + 2);
 	const scheduleJSON = JSON.parse(schedule);
-	const currentWeek = new Date(scheduleJSON.currentWeek);
 
 	const dropdownVariants = {
 		start: {

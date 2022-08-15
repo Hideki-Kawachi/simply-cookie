@@ -36,10 +36,10 @@ export async function getServerSideProps(context) {
 		newDate.setDate(currentDay.getDate() + 6); // update to saturday
 		newSched.push({ date: new Date(newDate), slots: slots });
 
-		newDate.setDate(newDate.getDate() + 1); // update to sunday
+		newDate.setDate(newDate.getDate() + 0); // update to sunday
 		newSched.push({ date: new Date(newDate), slots: slots });
 
-		console.log("new Sched is:" + JSON.stringify(newSched));
+		//console.log("new Sched is:" + JSON.stringify(newSched));
 		Schedule.updateOne(
 			{},
 			{ currentWeek: currentDay, schedule: newSched },
@@ -53,7 +53,6 @@ export async function getServerSideProps(context) {
 		);
 	}
 
-	console.log("finished");
 	return {
 		props: { cart: context.query.cart, cookies: cookies, schedule: sched },
 	};
