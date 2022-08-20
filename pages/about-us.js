@@ -12,7 +12,12 @@ function AboutUs() {
 				</div>
 			</div>
 			<Navbar></Navbar>
-			<div id="content-area"></div>
+			<div id="content-area">
+				<span>
+					SC was born out of a reignited passion for baking during the peak of
+					the 2020 pandemic.
+				</span>
+			</div>
 		</>
 	);
 }
