@@ -1,8 +1,17 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
-function CheckoutPayment() {
+function CheckoutPayment({
+	setFirstName,
+	setLastName,
+	setPayment,
+	setMobileNumber,
+	mobileNumber,
+	setAddress,
+}) {
 	const [isOpen, setIsOpen] = useState(false);
+	const [isGcash, setIsGcash] = useState(true);
 
 	const dropdownVariants = {
 		start: {
@@ -33,6 +42,11 @@ function CheckoutPayment() {
 		},
 	};
 
+	function numberHandler(val) {
+		const newVal = val.replace(/[^0-9]/g, "");
+		setMobileNumber(newVal);
+	}
+
 	const dropdownOpen = {
 		true: (
 			<motion.div
@@ -45,24 +59,91 @@ function CheckoutPayment() {
 			>
 				<form>
 					<input
-						id="mobile-numer"
-						type="number"
+						id="mobile-number"
+						type="tel"
 						pattern="[0-9]{11}"
 						placeholder="Mobile Number: 09173129421"
 						required
+						value={mobileNumber}
+						onChange={(e) => numberHandler(e.currentTarget.value)}
 					></input>
 					<input
 						id="first-name"
 						type="text"
 						placeholder="First Name: John"
 						required
+						onChange={(e) => setFirstName(e.currentTarget.value)}
 					></input>
 					<input
 						id="last-name"
 						type="text"
 						placeholder="Last Name: Cruz"
 						required
+						onChange={(e) => setLastName(e.currentTarget.value)}
 					></input>
+					<input
+						id="address"
+						type="text"
+						placeholder="Address: 27 Cookie Street, Baked City"
+						required
+						onChange={(e) => setAddress(e.currentTarget.value)}
+					></input>
+					<div className="payment-details-main-container">
+						{isGcash ? (
+							<>
+								<div className="payment-details-button-container">
+									<span
+										onClick={() => setIsGcash(true)}
+										style={{ backgroundColor: "rgba(125, 125, 125, 1)" }}
+									>
+										GCash
+									</span>
+									<span onClick={() => setIsGcash(false)}>BPI</span>
+								</div>
+
+								<div
+									className="payment-details-under-container"
+									style={{ borderRadius: "0px 10px 10px 10px" }}
+								>
+									<Image
+										alt="GCASH qr code"
+										className="payment-details-pic"
+										layout="responsive"
+										width="100%"
+										height="100%"
+										src={
+											"https://res.cloudinary.com/cloudurlhc/image/upload/v1660973260/Simply-Cookie/gcash_omhvff.jpg"
+										}
+									></Image>
+								</div>
+							</>
+						) : (
+							<>
+								<div className="payment-details-button-container">
+									<span onClick={() => setIsGcash(true)}>GCash</span>
+									<span
+										onClick={() => setIsGcash(false)}
+										style={{ backgroundColor: "rgba(125, 125, 125, 1)" }}
+									>
+										BPI
+									</span>
+								</div>
+
+								<div className="payment-details-under-container">
+									<Image
+										alt="BPI qr code"
+										className="payment-details-pic"
+										layout="responsive"
+										width="100%"
+										height="100%"
+										src={
+											"https://res.cloudinary.com/cloudurlhc/image/upload/v1660973207/Simply-Cookie/bpi_rd9qbo.jpg"
+										}
+									></Image>
+								</div>
+							</>
+						)}
+					</div>
 					<label className="upload-label" htmlFor="payment-screenshot">
 						<svg
 							className="upload-icon"
@@ -108,6 +189,7 @@ function CheckoutPayment() {
 						type="file"
 						accept="image/*"
 						required
+						onChange={(e) => setPayment(e.currentTarget.value)}
 					></input>
 					<span className="validity"></span>
 				</form>

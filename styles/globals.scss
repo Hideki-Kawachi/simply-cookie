@@ -308,8 +308,8 @@ html * {
 
 .cart-number {
 	position: fixed;
-	bottom: calc(9vh + 40px);
-	right: 8vw;
+	bottom: calc(4vh + 45px);
+	right: calc(6vw + 5px);
 	font-size: 24px;
 	font-weight: 600;
 	color: map-get($map: $brown, $key: 300);
@@ -318,7 +318,7 @@ html * {
 
 .checkout-item-container {
 	width: 100%;
-	height: max-content;
+	height:fit-content;
 	display: flex;
 	border: 1px;
 	border-style: solid;
@@ -340,8 +340,7 @@ html * {
 
 .checkout-item-pic-container {
 	position: relative;
-	min-width: 70px;
-	width: 25vw;
+	min-width: calc(50px + 5vw);
 
 	img {
 		border-radius: 10px;
@@ -451,6 +450,7 @@ html * {
 	overflow: hidden;
 	margin-bottom: 10px;
 	gap: 10px;
+	width: 95vw;
 
 	&#payment form {
 		margin-top: 10px;
@@ -481,7 +481,7 @@ html * {
 	font-weight: 500;
 	background-color: map-get($map: $pink, $key: 100);
 	min-width: fit-content;
-	width: 50vw;
+	width: 100%;
 	text-align: center;
 	display: flex;
 	flex-direction: column;
@@ -585,7 +585,30 @@ html * {
 	flex-direction: column;
 }
 
-@media (min-width: 500px){
+.payment-details-button-container{
+	display: flex;
+	gap: 10px;
+
+	span{
+		padding: 10px;
+		min-width: 80px;
+		border-radius: 10px 10px 0px 0px;
+		font-weight: 600;
+	}
+}
+
+.payment-details-main-container{
+	text-align: center;
+}
+
+.payment-details-under-container{
+	background-color: map-get($map: $black, $key: 200);
+	border-radius: 10px 10px 10px 10px;
+	padding: 20px;
+	height: ;
+}
+
+@media (min-width: 850px){
 	.menu-main-card-container{
 		padding: 20px 30px 20px 30px;
 	}
@@ -630,23 +653,15 @@ html * {
 	}
 
 	.order-item-side-container{
-		max-width: 1000px;
+		width: 100%;
 	}
 
 	.dropdown-container{
-		width: 40%;
+		width: 45%;
 	}
 	
 	.dropdown-list-container{
-		width: 40%;
-	}
-
-	.checkout-item-pic-container{
-		width: 10vw;
-	}
-
-	.checkout-item-container{
-		width: 100%;
+		width: 45%;
 	}
 
 }

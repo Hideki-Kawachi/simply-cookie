@@ -36,11 +36,11 @@ function CheckoutCartList({ finalCart, total }) {
 
 	const itemVariants = {
 		start: {
-			scale: 0.97,
+			width: "100%",
 		},
 		show: {
 			opacity: 1,
-			scale: 1,
+			width: "100%",
 			transition: {
 				type: "spring",
 				duration: 0.4,
@@ -79,6 +79,9 @@ function CheckoutCartList({ finalCart, total }) {
 					<div className="flex flex-col">
 						<span style={{ fontSize: 12, fontWeight: 300 }}>
 							*Shipping to be paid by buyer
+						</span>
+						<span style={{ fontSize: 12, fontWeight: 300 }}>
+							(Delivery is from Las Pinas)
 						</span>
 						<span className="checkout-total">Total: Php {total}</span>
 					</div>

@@ -73,6 +73,12 @@ function Checkout({ cart, cookies, schedule }) {
 	const cartJSON = JSON.parse(cart);
 	const finalCart = [];
 	const [total, setTotal] = useState(0);
+	const [mobileNumber, setMobileNumber] = useState("");
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [payment, setPayment] = useState("");
+	const [address, setAddress] = useState("");
+	const [isInvalid, setIsInvalid] = useState(false);
 
 	cookieJSON.forEach((cookie) => {
 		let cartItem = cartJSON.find((item) => {
@@ -97,7 +103,25 @@ function Checkout({ cart, cookies, schedule }) {
 	}, []);
 
 	function checkForm() {
-		console.log("Hello");
+		if (
+			!(
+				total > 0 &&
+				firstName.length > 0 &&
+				lastName.length > 0 &&
+				mobileNumber.length > 0 &&
+				payment.length > 0 &&
+				address.length > 0
+			)
+		) {
+			console.log("invalid");
+			setIsInvalid(true);
+		} else {
+			console.log("passed");
+			setIsInvalid(false);
+		}
+
+		console.log("total", finalCart, total);
+		console.log("asd", firstName, lastName, mobileNumber, payment);
 	}
 
 	return (
@@ -116,10 +140,24 @@ function Checkout({ cart, cookies, schedule }) {
 					total={total}
 				></CheckoutCartList>
 				<CheckoutDeliveryList schedule={schedule}></CheckoutDeliveryList>
-				<CheckoutPayment></CheckoutPayment>
-				<span onClick={() => checkForm()} className="checkout-submit-button">
+				<CheckoutPayment
+					setFirstName={setFirstName}
+					setLastName={setLastName}
+					setMobileNumber={setMobileNumber}
+					setPayment={setPayment}
+					setAddress={setAddress}
+					mobileNumber={mobileNumber}
+				></CheckoutPayment>
+				{isInvalid ? (
+					<span style={{ color: "red", fontWeight: 500 }}>
+						Fill out missing details
+					</span>
+				) : (
+					<></>
+				)}
+				<button onClick={() => checkForm()} className="checkout-submit-button">
 					Submit Order
-				</span>
+				</button>
 			</div>
 		</>
 	);

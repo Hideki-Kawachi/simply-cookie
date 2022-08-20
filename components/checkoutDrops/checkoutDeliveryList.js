@@ -40,10 +40,12 @@ function CheckoutDeliveryList({ schedule }) {
 	const itemVariants = {
 		start: {
 			scale: 0.97,
+			width: "80%",
 		},
 		show: {
 			opacity: 1,
 			scale: 1,
+			width: "80%",
 			transition: {
 				type: "spring",
 				duration: 0.4,
