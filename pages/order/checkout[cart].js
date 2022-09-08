@@ -4,7 +4,6 @@ import CheckoutCartList from "../../components/checkoutDrops/checkoutCartList";
 import CheckoutDeliveryList from "../../components/checkoutDrops/checkoutDeliveryList";
 import CheckoutPayment from "../../components/checkoutDrops/checkoutPayment";
 import Navbar from "../../components/navbar";
-import OrderSteps from "../../components/orderSteps";
 import connectToDB from "../../db";
 import Cookie from "../../mongoModels/cookieSchema";
 import Schedule from "../../mongoModels/scheduleSchema";
@@ -25,21 +24,26 @@ export async function getServerSideProps(context) {
 		currentWeek.setDate(currentWeek.getDate() + 1);
 		counter++;
 	}
-
-	//handles when the delivery schedule / order dates are reset... currently resets every sunday
+	//console.log("counter is:", counter, currentDay.getDay());
+	//handles when the delivery schedule / order dates are reset... currently resets every monday
 	// and re-updates delviery schedule to saturday and sunday with 5 slots each
-	if (counter > 0 && currentDay.getDay() == 0) {
+	console.log("current day is:", currentDay.getDay(), counter);
+	if (counter > 0 && currentDay.getDay() < 6) {
 		let newDate = new Date();
 		let newSched = []; // new schedule for delivery
 		const slots = 5; //number of slots
+		let dayAdd;
 
-		newDate.setDate(currentDay.getDate() + 6); // update to saturday
+		for (dayAdd = 0; currentDay.getDay() + dayAdd != 6; dayAdd++);
+
+		newDate.setDate(currentDay.getDate() + dayAdd); // update to saturday
 		newSched.push({ date: new Date(newDate), slots: slots });
 
-		newDate.setDate(newDate.getDate() + 0); // update to sunday
+		newDate.setDate(newDate.getDate() + 1); // update to sunday
 		newSched.push({ date: new Date(newDate), slots: slots });
 
-		//console.log("new Sched is:" + JSON.stringify(newSched));
+		//console.log("new Sched is:", JSON.stringify(newSched));
+
 		Schedule.updateOne(
 			{},
 			{ currentWeek: currentDay, schedule: newSched },
@@ -47,7 +51,7 @@ export async function getServerSideProps(context) {
 				if (err) {
 					console.log("error from updating sched:" + err);
 				} else {
-					console.log("result of update is:" + result);
+					//console.log("result of update is:" + JSON.stringify(result));
 				}
 			}
 		);
@@ -76,9 +80,11 @@ function Checkout({ cart, cookies, schedule }) {
 	const [mobileNumber, setMobileNumber] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
-	const [payment, setPayment] = useState("");
+	const [payment, setPayment] = useState(null);
 	const [address, setAddress] = useState("");
+	const [deliveryDate, setDeliveryDate] = useState("");
 	const [isInvalid, setIsInvalid] = useState(false);
+	const [success, setSuccess] = useState(true);
 
 	cookieJSON.forEach((cookie) => {
 		let cartItem = cartJSON.find((item) => {
@@ -109,7 +115,7 @@ function Checkout({ cart, cookies, schedule }) {
 				firstName.length > 0 &&
 				lastName.length > 0 &&
 				mobileNumber.length > 0 &&
-				payment.length > 0 &&
+				payment != null &&
 				address.length > 0
 			)
 		) {
@@ -118,6 +124,55 @@ function Checkout({ cart, cookies, schedule }) {
 		} else {
 			console.log("passed");
 			setIsInvalid(false);
+			let name = firstName + " " + lastName;
+			const uploadPayment = new FormData();
+			uploadPayment.append("file", payment[0]);
+			uploadPayment.append("upload_preset", "sc_payment");
+			uploadPayment.append("folder", "Simply-Cookie/payments");
+
+			let order = new FormData();
+
+			fetch("https://api.cloudinary.com/v1_1/cloudurlhc/image/upload", {
+				method: "POST",
+				body: uploadPayment,
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					order.append("firstName", firstName);
+					order.append("lastName", lastName);
+					order.append("mobileNumber", mobileNumber);
+					order.append("payment", data.url);
+					order.append("address", address);
+					order.append("deliveryDate", deliveryDate);
+					order.append("cart", cart);
+					order.append("total", total);
+
+					let orderJSON = {
+						firstName: firstName,
+						lastName: lastName,
+						mobileNumber: mobileNumber,
+						payment: data.url,
+						address: address,
+						deliveryDate: new Date(deliveryDate).toDateString(),
+						cart: cartJSON,
+						total: total,
+					};
+
+					fetch("/api/createOrder", {
+						method: "POST",
+						headers: {
+							Accept: "application/json, text/plain, */*",
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify(orderJSON),
+					})
+						.then((res) => res.json())
+						.then((data) => {
+							if (data == "success") {
+								setSuccess(true);
+							}
+						});
+				});
 		}
 
 		console.log("total", finalCart, total);
@@ -135,29 +190,42 @@ function Checkout({ cart, cookies, schedule }) {
 			</div>
 			<Navbar></Navbar>
 			<div id="content-area" className="gap-1">
-				<CheckoutCartList
-					finalCart={finalCart}
-					total={total}
-				></CheckoutCartList>
-				<CheckoutDeliveryList schedule={schedule}></CheckoutDeliveryList>
-				<CheckoutPayment
-					setFirstName={setFirstName}
-					setLastName={setLastName}
-					setMobileNumber={setMobileNumber}
-					setPayment={setPayment}
-					setAddress={setAddress}
-					mobileNumber={mobileNumber}
-				></CheckoutPayment>
-				{isInvalid ? (
-					<span style={{ color: "red", fontWeight: 500 }}>
-						Fill out missing details
-					</span>
+				{success ? (
+					<>true</>
 				) : (
-					<></>
+					<>
+						<CheckoutCartList
+							finalCart={finalCart}
+							total={total}
+						></CheckoutCartList>
+						<CheckoutDeliveryList
+							schedule={schedule}
+							deliveryDate={deliveryDate}
+							setDeliveryDate={setDeliveryDate}
+						></CheckoutDeliveryList>
+						<CheckoutPayment
+							setFirstName={setFirstName}
+							setLastName={setLastName}
+							setMobileNumber={setMobileNumber}
+							setPayment={setPayment}
+							setAddress={setAddress}
+							mobileNumber={mobileNumber}
+						></CheckoutPayment>
+						{isInvalid ? (
+							<span style={{ color: "red", fontWeight: 500 }}>
+								Fill out missing details
+							</span>
+						) : (
+							<></>
+						)}
+						<button
+							onClick={() => checkForm()}
+							className="checkout-submit-button"
+						>
+							Submit Order
+						</button>
+					</>
 				)}
-				<button onClick={() => checkForm()} className="checkout-submit-button">
-					Submit Order
-				</button>
 			</div>
 		</>
 	);

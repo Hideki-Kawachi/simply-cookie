@@ -2,9 +2,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import CheckoutDeliveryItem from "./checkoutDeliveryItem";
 
-function CheckoutDeliveryList({ schedule }) {
+function CheckoutDeliveryList({ schedule, setDeliveryDate, deliveryDate }) {
 	const [isOpen, setIsOpen] = useState(false);
-	const [deliveryDate, setDeliveryDate] = useState("");
 
 	const scheduleJSON = JSON.parse(schedule);
 

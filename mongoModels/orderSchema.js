@@ -5,7 +5,9 @@ const orderSchema = new Schema({
 	lastName: { type: String, required: true },
 	mobileNumber: { type: Number, required: true },
 	payment: { type: String, required: true },
-	cart: [{ cookie: String, quantity: Number }],
+	address: { type: String, required: true },
+	deliveryDate: { type: String, required: true },
+	cart: [{ cookie: { type: String }, quantity: { type: Number } }],
 	total: { type: Number, required: true },
 });
 

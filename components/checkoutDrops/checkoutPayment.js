@@ -189,7 +189,7 @@ function CheckoutPayment({
 						type="file"
 						accept="image/*"
 						required
-						onChange={(e) => setPayment(e.currentTarget.value)}
+						onChange={(e) => setPayment(e.currentTarget.files)}
 					></input>
 					<span className="validity"></span>
 				</form>
