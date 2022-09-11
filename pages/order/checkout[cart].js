@@ -128,7 +128,7 @@ function Checkout({ cart, cookies, schedule }) {
 			let htmlPage = document.getElementById("__next");
 			htmlPage.style.pointerEvents = "none";
 			htmlPage.style.opacity = "60%";
-			let name = firstName + " " + lastName;
+
 			const uploadPayment = new FormData();
 			uploadPayment.append("file", payment[0]);
 			uploadPayment.append("upload_preset", "sc_payment");
@@ -191,6 +191,7 @@ function Checkout({ cart, cookies, schedule }) {
 							<span className="mb-1">You have successfully ordered: </span>
 							{finalCart.map((item) => (
 								<CheckoutSuccessItem
+									key={item.name}
 									name={item.name}
 									price={item.price}
 									qty={item.qty}

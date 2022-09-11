@@ -43,7 +43,7 @@ export default function Home({ carouselImages }) {
 	});
 
 	useEffect(() => {
-		var logoAnimation = Lottie.loadAnimation({
+		let logoAnimation = Lottie.loadAnimation({
 			// @ts-ignore
 			container: document.getElementById("logo"),
 			renderer: "svg",
