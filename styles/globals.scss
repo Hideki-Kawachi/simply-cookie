@@ -106,18 +106,33 @@ html * {
 	background-image: url("../public/background-wood.jpg");
 	background-size: 100%;
 	width: 100%;
-	height: 70px;
+	height: 100px;
 	position: relative;
 	
 	
 	.background{
 		background-color: $backgroundColor;
-		justify-content: center;
-		display: flex;
-		gap: 10px;
-		align-items: center;
 		width: 100%;
 		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: center;
+		gap: 10px;
+
+		div{
+			justify-content: center;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		span{
+			color: $white;
+			font-weight: 300;
+			font-size: 14px;
+			margin-bottom: 5px;
+		}
 	}
 }
 
@@ -390,6 +405,36 @@ html * {
 	background-color: map-get($map: $pink, $key: 300);
 }
 
+.checkout-success-container{
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 10px;
+	background-color: map-get($map: $pink, $key: 200);
+	display: flex;
+	flex-direction: column;
+	width: 95vw;
+}
+
+.checkout-success-total{
+	margin-left: auto;
+	margin-top: 10px;
+	font-size: 18px;
+	font-weight: 500;
+	margin-bottom: 10px;
+}
+
+.return-button-container{
+	padding: 10px 20px 10px 20px;
+	width: fit-content;
+	margin-top: 20px;
+	border-radius: 10px;
+	background-color: map-get($map: $brown, $key: 200);
+	box-shadow: 0px 3px 2px 2px rgba(0, 0, 0, 0.25);
+	color: $white;
+	text-align: center;
+	align-self: center;
+}
+
 #order-steps-container {
 	border: 2px;
 	border-style: solid;
@@ -493,9 +538,24 @@ html * {
 		padding: 10px;
 		border-radius: 5px;
 		font-weight: 500;
-		background-color: #03c04a;
+		background-color: rgb(62, 204, 62);
 		min-width: fit-content;
-		width: 50vw;
+		width: 100%;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		box-shadow: 0px 3px 2px 2px rgba(0, 0, 0, 0.25);
+	}
+
+	&-disabled{
+		border: 1px;
+		border-style: solid;
+		padding: 10px;
+		border-radius: 5px;
+		font-weight: 500;
+		background-color: map-get($map: $black, $key: 200);
+		min-width: fit-content;
+		width: 100%;
 		text-align: center;
 		display: flex;
 		flex-direction: column;
@@ -539,6 +599,23 @@ html * {
 			object-fit: cover;
 		}
 	}
+}
+
+.about-us-container{
+	margin-top: 80px;
+	display: flex;
+	flex-direction: column;
+	padding: 0px 20px 0px 20px;
+}
+
+.about-us-header{
+	font-size: 18px;
+	font-weight: 500;
+	align-self: center;
+}
+
+.about-us-content{
+	margin-top: 10px;
 }
 
 .our-cookie-card-main-container {
@@ -605,7 +682,6 @@ html * {
 	background-color: map-get($map: $black, $key: 200);
 	border-radius: 10px 10px 10px 10px;
 	padding: 20px;
-	height: ;
 }
 
 @media (min-width: 850px){

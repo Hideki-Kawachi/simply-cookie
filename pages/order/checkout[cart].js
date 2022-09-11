@@ -7,6 +7,7 @@ import Navbar from "../../components/navbar";
 import connectToDB from "../../db";
 import Cookie from "../../mongoModels/cookieSchema";
 import Schedule from "../../mongoModels/scheduleSchema";
+import CheckoutSuccessItem from "../../components/checkoutDrops/checkoutSuccessItem";
 
 export async function getServerSideProps(context) {
 	await connectToDB();
@@ -84,7 +85,7 @@ function Checkout({ cart, cookies, schedule }) {
 	const [address, setAddress] = useState("");
 	const [deliveryDate, setDeliveryDate] = useState("");
 	const [isInvalid, setIsInvalid] = useState(false);
-	const [success, setSuccess] = useState(true);
+	const [success, setSuccess] = useState(false);
 
 	cookieJSON.forEach((cookie) => {
 		let cartItem = cartJSON.find((item) => {
@@ -124,13 +125,14 @@ function Checkout({ cart, cookies, schedule }) {
 		} else {
 			console.log("passed");
 			setIsInvalid(false);
+			let htmlPage = document.getElementById("__next");
+			htmlPage.style.pointerEvents = "none";
+			htmlPage.style.opacity = "60%";
 			let name = firstName + " " + lastName;
 			const uploadPayment = new FormData();
 			uploadPayment.append("file", payment[0]);
 			uploadPayment.append("upload_preset", "sc_payment");
 			uploadPayment.append("folder", "Simply-Cookie/payments");
-
-			let order = new FormData();
 
 			fetch("https://api.cloudinary.com/v1_1/cloudurlhc/image/upload", {
 				method: "POST",
@@ -138,22 +140,13 @@ function Checkout({ cart, cookies, schedule }) {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					order.append("firstName", firstName);
-					order.append("lastName", lastName);
-					order.append("mobileNumber", mobileNumber);
-					order.append("payment", data.url);
-					order.append("address", address);
-					order.append("deliveryDate", deliveryDate);
-					order.append("cart", cart);
-					order.append("total", total);
-
 					let orderJSON = {
 						firstName: firstName,
 						lastName: lastName,
 						mobileNumber: mobileNumber,
 						payment: data.url,
 						address: address,
-						deliveryDate: new Date(deliveryDate).toDateString(),
+						deliveryDate: deliveryDate,
 						cart: cartJSON,
 						total: total,
 					};
@@ -170,14 +163,16 @@ function Checkout({ cart, cookies, schedule }) {
 						.then((data) => {
 							if (data == "success") {
 								setSuccess(true);
+								htmlPage.style.pointerEvents = "auto";
+								htmlPage.style.opacity = "100%";
+								sessionStorage.clear();
 							}
 						});
 				});
 		}
-
-		console.log("total", finalCart, total);
-		console.log("asd", firstName, lastName, mobileNumber, payment);
 	}
+
+	console.log("delivery date", deliveryDate);
 
 	return (
 		<>
@@ -191,7 +186,35 @@ function Checkout({ cart, cookies, schedule }) {
 			<Navbar></Navbar>
 			<div id="content-area" className="gap-1">
 				{success ? (
-					<>true</>
+					<>
+						<div className="checkout-success-container">
+							<span className="mb-1">You have successfully ordered: </span>
+							{finalCart.map((item) => (
+								<CheckoutSuccessItem
+									name={item.name}
+									price={item.price}
+									qty={item.qty}
+									pic={item.pic}
+								></CheckoutSuccessItem>
+							))}
+							<span className="checkout-success-total">Total: Php {total}</span>
+							<span className="mb-3">
+								To be delivered on{" "}
+								<b>{new Date(deliveryDate).toDateString()}</b>, at
+								<b> {address}</b>
+							</span>
+							<span>
+								Please wait for us to contact you on your phone{" "}
+								<b>{mobileNumber} </b>
+								for the confirmation of your payment.
+							</span>
+							<Link href={"/"}>
+								<a className="return-button-container">
+									<span>Return</span>
+								</a>
+							</Link>
+						</div>
+					</>
 				) : (
 					<>
 						<CheckoutCartList

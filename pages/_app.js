@@ -32,46 +32,6 @@ function __app({ Component, pageProps }) {
 		};
 	}, []);
 
-	/*
-	{loading ? (
-				<>
-					<LoadingCookie></LoadingCookie>
-					<div id="loading-container">
-						<header>
-							<title>Simply Cookie</title>
-							<meta name="description" content="Simply Cookie Website" />
-							<link rel="icon" href="/favicon.ico" />
-							<link rel="preconnect" href="https://fonts.googleapis.com" />
-							<link rel="preconnect" href="https://fonts.gstatic.com" />
-							<link
-								href="https://fonts.googleapis.com/css2?family=Caramel&family=Montserrat:wght@100;300;400;500&display=swap"
-								rel="stylesheet"
-							/>
-						</header>
-
-						<Component {...pageProps} />
-						<Footer></Footer>
-					</div>
-				</>
-			) : (
-				<>
-					<header>
-						<title>Simply Cookie</title>
-						<meta name="description" content="Simply Cookie Website" />
-						<link rel="icon" href="/favicon.ico" />
-						<link rel="preconnect" href="https://fonts.googleapis.com" />
-						<link rel="preconnect" href="https://fonts.gstatic.com" />
-						<link
-							href="https://fonts.googleapis.com/css2?family=Caramel&family=Montserrat:wght@100;300;400;500&display=swap"
-							rel="stylesheet"
-						/>
-					</header>
-					<Component {...pageProps} />
-					<Footer></Footer>
-				</>
-			)}
-	*/
-
 	return (
 		<>
 			{loading ? (

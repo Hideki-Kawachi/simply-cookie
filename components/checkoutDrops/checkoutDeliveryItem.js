@@ -41,7 +41,14 @@ function CheckoutDeliveryItem({ date, slots, setDeliveryDate, deliveryDate }) {
 	}, [deliveryDate]);
 
 	function isHighlighted() {
-		if (isClicked) {
+		if (slots == 0) {
+			return (
+				<div className="checkout-delivery-item-container-disabled">
+					<span style={{ fontWeight: 500 }}>{dateShow}</span>
+					<span style={{ fontWeight: 300 }}>No Slots Left</span>
+				</div>
+			);
+		} else if (isClicked) {
 			return (
 				<div
 					className="checkout-delivery-item-container-clicked"

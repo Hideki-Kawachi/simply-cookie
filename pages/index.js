@@ -116,6 +116,13 @@ export default function Home({ carouselImages }) {
 						))}
 					</div>
 				</div>
+				<div className="about-us-container">
+					<span className="about-us-header">About Us</span>
+					<span className="about-us-content">
+						SC was born out of a reignited passion for baking during the peak of
+						the 2020 pandemic.
+					</span>
+				</div>
 			</div>
 		</>
 	);

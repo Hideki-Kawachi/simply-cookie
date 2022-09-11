@@ -116,14 +116,6 @@ function Navbar() {
 				>
 					ORDER
 				</motion.span>
-
-				<motion.span
-					className="menu-items"
-					variants={itemVariants}
-					onClick={() => linkClicked("/about-us")}
-				>
-					ABOUT US
-				</motion.span>
 			</motion.div>
 		),
 	};
