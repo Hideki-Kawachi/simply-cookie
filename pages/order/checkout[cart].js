@@ -8,6 +8,8 @@ import connectToDB from "../../db";
 import Cookie from "../../mongoModels/cookieSchema";
 import Schedule from "../../mongoModels/scheduleSchema";
 import CheckoutSuccessItem from "../../components/checkoutDrops/checkoutSuccessItem";
+import LoadingCookie from "../../components/loadingCookie";
+import { motion } from "framer-motion";
 
 export async function getServerSideProps(context) {
 	await connectToDB();
@@ -42,20 +44,25 @@ export async function getServerSideProps(context) {
 
 		newDate.setDate(newDate.getDate() + 1); // update to sunday
 		newSched.push({ date: new Date(newDate), slots: slots });
-
+		console.log("sched", schedTemp[0]);
 		//console.log("new Sched is:", JSON.stringify(newSched));
-
-		Schedule.updateOne(
-			{},
-			{ currentWeek: currentDay, schedule: newSched },
-			(err, result) => {
-				if (err) {
-					console.log("error from updating sched:" + err);
-				} else {
-					//console.log("result of update is:" + JSON.stringify(result));
+		if (
+			new Date(schedTemp[0].date) != newSched[0].date &&
+			new Date(schedTemp[1].date) != newSched[1].date
+		) {
+			Schedule.updateOne(
+				{},
+				{ currentWeek: currentDay, schedule: newSched },
+				(err, result) => {
+					if (err) {
+						console.log("error from updating sched:" + err);
+					} else {
+						//console.log("result of update is:" + JSON.stringify(result));
+					}
 				}
-			}
-		);
+			);
+			sched = JSON.stringify(newSched);
+		}
 	}
 
 	return {
@@ -86,6 +93,7 @@ function Checkout({ cart, cookies, schedule }) {
 	const [deliveryDate, setDeliveryDate] = useState("");
 	const [isInvalid, setIsInvalid] = useState(false);
 	const [success, setSuccess] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	cookieJSON.forEach((cookie) => {
 		let cartItem = cartJSON.find((item) => {
@@ -117,7 +125,8 @@ function Checkout({ cart, cookies, schedule }) {
 				lastName.length > 0 &&
 				mobileNumber.length > 0 &&
 				payment != null &&
-				address.length > 0
+				address.length > 0 &&
+				deliveryDate.length > 0
 			)
 		) {
 			console.log("invalid");
@@ -125,9 +134,7 @@ function Checkout({ cart, cookies, schedule }) {
 		} else {
 			console.log("passed");
 			setIsInvalid(false);
-			let htmlPage = document.getElementById("__next");
-			htmlPage.style.pointerEvents = "none";
-			htmlPage.style.opacity = "60%";
+			setLoading(true);
 
 			const uploadPayment = new FormData();
 			uploadPayment.append("file", payment[0]);
@@ -163,8 +170,7 @@ function Checkout({ cart, cookies, schedule }) {
 						.then((data) => {
 							if (data == "success") {
 								setSuccess(true);
-								htmlPage.style.pointerEvents = "auto";
-								htmlPage.style.opacity = "100%";
+								setLoading(false);
 								sessionStorage.clear();
 							}
 						});
@@ -176,6 +182,20 @@ function Checkout({ cart, cookies, schedule }) {
 
 	return (
 		<>
+			{loading ? (
+				<motion.div
+					initial={{ opacity: 0, height: `${document.body.scrollHeight}px` }}
+					animate={{ opacity: 1, height: `${document.body.scrollHeight}px` }}
+					exit={{ opacity: 0, height: `${document.body.scrollHeight}px` }}
+					transition={{ ease: "easeOut", duration: 0.15 }}
+					className="absolute top-0 bottom-0 right-0 left-0 z-[99]"
+				>
+					<LoadingCookie></LoadingCookie>
+					<div id="loading-container"></div>
+				</motion.div>
+			) : (
+				<></>
+			)}
 			<div id="header">
 				<div className="background">
 					<div className="relative top-[50%] text-center">

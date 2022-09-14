@@ -8,7 +8,10 @@ export default async (req, res) => {
 	let newCart = [];
 
 	req.body.cart.forEach((item) => {
-		newCart.push({ name: item.name, qty: item.qty });
+		newCart.push({
+			cookie: item.name,
+			quantity: parseInt(item.qty),
+		});
 	});
 
 	console.log("new cart", newCart);

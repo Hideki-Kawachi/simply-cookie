@@ -87,6 +87,7 @@ function OurCookieCard({ name, pic, description, position }) {
 					width="100%"
 					height="100%"
 					priority={true}
+					alt={name}
 				></Image>
 			</motion.div>
 			<motion.div

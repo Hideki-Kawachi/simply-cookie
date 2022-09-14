@@ -581,6 +581,7 @@ html * {
 	top: 50px;
 	width: 90vw;
 	max-width: 500px;
+	max-height: 380px;
 	height: calc((90 / 4) * 3 * 1vw);
 	overflow: hidden;
 	position: relative;
@@ -738,6 +739,10 @@ html * {
 	
 	.dropdown-list-container{
 		width: 45%;
+	}
+
+	.checkout-success-container{
+		width: 40%;
 	}
 
 }
