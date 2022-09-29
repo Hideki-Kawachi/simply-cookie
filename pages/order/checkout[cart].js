@@ -45,10 +45,10 @@ export async function getServerSideProps(context) {
 		newDate.setDate(newDate.getDate() + 1); // update to sunday
 		newSched.push({ date: new Date(newDate), slots: slots });
 		console.log("sched", schedTemp[0]);
-		//console.log("new Sched is:", JSON.stringify(newSched));
+		//console.log("Sched is:", JSON.stringify(schedTemp));
 		if (
-			new Date(schedTemp[0].date) != newSched[0].date &&
-			new Date(schedTemp[1].date) != newSched[1].date
+			new Date(schedTemp[0].schedule[0].date) != newSched[0].date &&
+			new Date(schedTemp[0].schedule[1].date) != newSched[1].date
 		) {
 			Schedule.updateOne(
 				{},
