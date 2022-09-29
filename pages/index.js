@@ -85,43 +85,58 @@ export default function Home({ carouselImages }) {
 			</div>
 			<Navbar></Navbar>
 			<div id="content-area">
-				<div className="carousel-main-container" {...handlers}>
-					<div className="carousel-reel-container">
-						{carouselImages.map((items, index) => (
-							<motion.div
-								key={index}
-								className="carousel-image"
-								initial={{
-									opacity: 0,
-									left: `${(index - newPosition) * 100}%`,
-								}}
-								animate={{
-									opacity: 1,
-									scale: index === position ? 1 : 0.9,
-									left: `${(index - newPosition) * 100}%`,
-								}}
-								transition={{
-									type: "easeInOut",
-									duration: 0.85,
-								}}
-							>
-								<Image
-									priority={true}
-									src={items}
-									layout="responsive"
-									width="100%"
-									height={(100 / 4) * 3}
-								></Image>
-							</motion.div>
-						))}
+				<div className="index-main-container">
+					<div className="carousel-main-container" {...handlers}>
+						<div className="carousel-reel-container">
+							{carouselImages.map((items, index) => (
+								<motion.div
+									key={index}
+									className="carousel-image"
+									initial={{
+										opacity: 0,
+										left: `${(index - newPosition) * 100}%`,
+									}}
+									animate={{
+										opacity: 1,
+										scale: index === position ? 1 : 0.9,
+										left: `${(index - newPosition) * 100}%`,
+									}}
+									transition={{
+										type: "easeInOut",
+										duration: 0.85,
+									}}
+								>
+									<Image
+										priority={true}
+										src={items}
+										layout="responsive"
+										width="100%"
+										height={(100 / 4) * 3}
+									></Image>
+								</motion.div>
+							))}
+						</div>
 					</div>
-				</div>
-				<div className="about-us-container">
-					<span className="about-us-header">About Us</span>
-					<span className="about-us-content">
-						SC was born out of a reignited passion for baking during the peak of
-						the 2020 pandemic.
-					</span>
+					<div className="about-us-container">
+						<span className="about-us-header">About Us</span>
+						<span className="about-us-content">
+							Simply Cookie was born out of a reignited passion for baking
+							during the peak of the 2020 pandemic. Our main motivation for this
+							project is to provide people with warmth and comfort.
+						</span>
+						<span
+							className="about-us-content"
+							style={{
+								fontFamily: "Caramel",
+								fontSize: "34px",
+								letterSpacing: "1px",
+								fontWeight: 500,
+							}}
+						>
+							We hope that through our cookies, people will get to enjoy their
+							day a little better.
+						</span>
+					</div>
 				</div>
 			</div>
 		</>

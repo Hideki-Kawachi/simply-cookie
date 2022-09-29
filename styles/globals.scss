@@ -577,12 +577,15 @@ html * {
 	}
 }
 
+.index-main-container{
+	display: flex;
+	flex-direction: column;
+}
+
 .carousel-main-container {
-	top: 50px;
-	width: 90vw;
-	max-width: 500px;
-	max-height: 380px;
-	height: calc((90 / 4) * 3 * 1vw);
+	top: 15px;
+	width: 100vw;
+	height: calc((100 / 4) * 3 * 1vw);
 	overflow: hidden;
 	position: relative;
 }
@@ -591,32 +594,38 @@ html * {
 	position: relative;
 
 	.carousel-image {
-		width: 90vw;
-		max-width: 500px;
+		width: 100vw;
 		position: absolute;
 
+		/*
 		img {
 			border-radius: 10px;
 			object-fit: cover;
 		}
+		*/
 	}
 }
 
 .about-us-container{
-	margin-top: 80px;
 	display: flex;
+	margin-top: 50px;
 	flex-direction: column;
+	align-items: center;
 	padding: 0px 20px 0px 20px;
+	justify-content: center;
 }
 
 .about-us-header{
 	font-size: 18px;
 	font-weight: 500;
-	align-self: center;
+	margin-bottom: 10px;
 }
 
 .about-us-content{
 	margin-top: 10px;
+	display: inline-block;
+	text-indent: 50px;
+	text-align: center;
 }
 
 .our-cookie-card-main-container {
@@ -686,6 +695,27 @@ html * {
 }
 
 @media (min-width: 850px){
+	.index-main-container{
+		flex-direction: row;
+	}
+
+	.about-us-container{
+		margin-top: -4.5vh;
+		width: 45vw;
+		position: relative;
+		padding: 50px;
+	}
+
+	.carousel-main-container{
+		width: 55vw;
+		height: calc((55 / 4) * 3 * 1vw);
+		max-height: 1100px;
+	}
+
+	.carousel-reel-container .carousel-image{
+			width: 55vw;
+		}
+
 	.menu-main-card-container{
 		padding: 20px 30px 20px 30px;
 	}
