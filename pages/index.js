@@ -131,6 +131,7 @@ export default function Home({ carouselImages }) {
 								fontSize: "34px",
 								letterSpacing: "1px",
 								fontWeight: 500,
+								textIndent: 0,
 							}}
 						>
 							We hope that through our cookies, people will get to enjoy their
