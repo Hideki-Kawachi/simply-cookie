@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { stringifyQuery } from "next/dist/server/server-route-utils";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Navbar from "../components/navbar";
 import OurCookieCard from "../components/ourCookieCard";
 import connectToDB from "../db";
