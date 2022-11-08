@@ -1,4 +1,4 @@
-## Front End for Simply Cookie
+## Simply Cookie
 
 Tech Stack used:
 
