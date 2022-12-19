@@ -97,7 +97,7 @@ html * {
 	align-items: center;
 	z-index: 0;
 	min-height: calc(100vh - 150px);;
-	height: fit-content;
+	height: max-content;
 	background-image: url("../public/background.jpg");
 	overflow: hidden;
 }
@@ -628,6 +628,10 @@ html * {
 	text-align: center;
 }
 
+#content-area.our-cookies{
+	padding: 0px;
+}
+
 .our-cookie-card-main-container {
 	width: 100vw;
 	max-width: 500px;
@@ -695,6 +699,13 @@ html * {
 }
 
 @media (min-width: 850px){
+	#content-area.our-cookies{
+		min-height: 100vh;
+	}
+	.our-cookie-gradient{
+		min-height: 100vh;
+	}
+
 	.index-main-container{
 		flex-direction: row;
 	}

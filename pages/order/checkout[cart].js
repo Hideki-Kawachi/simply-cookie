@@ -64,7 +64,7 @@ export async function getServerSideProps(context) {
 			sched = JSON.stringify(newSched);
 		}
 	}
-
+	console.log("SCHED IS:", sched);
 	return {
 		props: { cart: context.query.cart, cookies: cookies, schedule: sched },
 	};

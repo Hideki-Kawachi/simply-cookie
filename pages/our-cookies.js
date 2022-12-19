@@ -38,7 +38,7 @@ function OurCookies({ ourCookies }) {
 				</div>
 			</div>
 			<Navbar></Navbar>
-			<div id="content-area" style={{ padding: 0 }}>
+			<div id="content-area" className="our-cookies">
 				<motion.div
 					initial="initial"
 					animate="animate"

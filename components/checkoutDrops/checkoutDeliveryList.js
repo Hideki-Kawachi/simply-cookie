@@ -62,7 +62,7 @@ function CheckoutDeliveryList({ schedule, setDeliveryDate, deliveryDate }) {
 				exit="end"
 				variants={dropdownVariants}
 			>
-				{scheduleJSON.schedule.map((sched) => (
+				{scheduleJSON.schedule?.map((sched) => (
 					<motion.div key={sched.date} variants={itemVariants}>
 						<CheckoutDeliveryItem
 							date={sched.date}
