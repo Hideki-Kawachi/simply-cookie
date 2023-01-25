@@ -5,7 +5,7 @@ Tech Stack used:
 - Next.js
 - MongoDB Atlas (mongoose)
 - Tailwind CSS
-- SASS
+- SCSS
 - Framer Motion
 - Lottie (for Adobe After Effects animation)
 
