@@ -1,9 +1,6 @@
 import mongoose from "mongoose";
 
-let uri =
-	process.env.MONGODB_URI ||
-	"mongodb+srv://Admin:AdminPassword@cluster0.qyaxn.mongodb.net/Simply-Cookie?retryWrites=true&w=majority";
-// ?retryWrites=true&w=majority
+const uri = process.env.MONGODB_URI;
 
 if (!uri) {
 	throw new Error(
